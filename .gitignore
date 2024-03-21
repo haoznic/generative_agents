@@ -103,4 +103,3 @@ ENV/
 reverie/config.json
 environment/frontend_server/temp_storage/
 environment/frontend_server/storage/
-environment/frontend_server/temp_storage/curr_sim_code.json
