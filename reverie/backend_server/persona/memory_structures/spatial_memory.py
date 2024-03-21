@@ -96,7 +96,7 @@ class MemoryTree:
     EXAMPLE STR OUTPUT
       "phone, charger, bed, nightstand"
     """
-    curr_world, curr_sector, curr_arena = arena.split(":")
+    curr_world, curr_sector, curr_arena = arena.replace("{", "").replace("}", "").split(":")
 
     if not curr_arena: 
       return ""

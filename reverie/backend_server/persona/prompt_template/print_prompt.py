@@ -13,7 +13,8 @@ import datetime
 import random
 
 from global_methods import *
-from persona.prompt_template.gpt_structure import *
+# from persona.prompt_template.gpt_structure import *
+from persona.prompt_template.gpt_structure_tongyi import *
 from utils import *
 
 ##############################################################################

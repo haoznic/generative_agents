@@ -13,7 +13,8 @@ import ast
 sys.path.append('../../')
 
 from global_methods import *
-from persona.prompt_template.gpt_structure import *
+# from persona.prompt_template.gpt_structure import *
+from persona.prompt_template.gpt_structure_tongyi import *
 from persona.prompt_template.print_prompt import *
 
 def get_random_alphanumeric(i=6, j=6): 
@@ -372,11 +373,17 @@ def run_gpt_prompt_task_decomp(persona,
         _cr += [i]
     for count, i in enumerate(_cr): 
       k = [j.strip() for j in i.split("(duration in minutes:")]
-      task = k[0]
-      if task[-1] == ".": 
-        task = task[:-1]
-      duration = int(k[1].split(",")[0].strip())
-      cr += [[task, duration]]
+
+      if(len(k)==1 and k[0]==''):
+        continue
+      else:
+        print("---------k------------:",k)
+        if(len(k)>2):
+          task = k[0]
+          if task[-1] == ".": 
+            task = task[:-1]
+          duration = int(k[1].split(",")[0].strip())
+          cr += [[task, duration]]
 
     total_expected_min = int(prompt.split("(total duration in minutes")[-1]
                                    .split("):")[0].strip())
@@ -399,9 +406,12 @@ def run_gpt_prompt_task_decomp(persona,
       for i in range(1, 6): 
         curr_min_slot[-1 * i] = last_task
     elif len(curr_min_slot) < total_expected_min: 
-      last_task = curr_min_slot[-1]
-      for i in range(total_expected_min - len(curr_min_slot)):
-        curr_min_slot += [last_task]
+      # 如果 curr_min_slot 为空？
+      if(len(curr_min_slot)>0):
+        last_task = curr_min_slot[-1]
+        for i in range(total_expected_min - len(curr_min_slot)):
+          curr_min_slot += [last_task]
+
 
     cr_ret = [["dummy", -1],]
     for task, task_index in curr_min_slot: 
