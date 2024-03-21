@@ -343,7 +343,7 @@ def get_embedding(text, model="text-embedding-ada-002"):
     if not text:
         text = "this is blank"
     #SimAiWorld/reverie/backend_server/reverie.py
-    tokenizer = GPT2TokenizerFast.from_pretrained('../../../text-embedding-ada-002')
+    tokenizer = GPT2TokenizerFast.from_pretrained('../../models/text-embedding-ada-002')
     emb = tokenizer.encode(text)
     print("emb------------:",emb)
     return emb
