@@ -383,6 +383,7 @@ def run_gpt_prompt_task_decomp(persona,
       
       if(len(k)>1):
         task = k[0]
+        print(f"task: [{task}]")
         if task[-1] == ".": 
           task = task[:-1]
         duration = int(k[1].replace(")","").split(",")[0].strip())
