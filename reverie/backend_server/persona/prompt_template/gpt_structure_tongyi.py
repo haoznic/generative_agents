@@ -34,11 +34,20 @@ def Tongyi_request(prompt: object) -> object:
     try:
         # llm call
         llm = Tongyi()
-        llm.model_name = 'qwen-max'
+        # llm.model_name = 'qwen-max'
+        llm.model_name ='qwen-max-longcontext'
+        # llm.model_name = 'qwen-plus'
         messages=json.dumps([{"role": "user", "content": prompt}])
-        # print(messages)
+        print("messages: [",messages,"]")
         # print("os.environ[DASHSCOPE_API_KEY]:",os.environ["DASHSCOPE_API_KEY"])
         response = llm.invoke(messages)
+        # 后处理
+        if(response.strip().startswith("```json")):
+            response = response.strip().split("```json")[1].strip().split("```")[0].strip()
+        if(response.strip().startswith("['")):
+            response = response.strip().split("['")[1].strip().split("']")[0].strip()
+
+        print("response: [",response,"]")
         return response
     except Exception as e:
         return f"TongYi ERROR:{e}"
@@ -256,9 +265,18 @@ def GPT_request(prompt, gpt_parameter):
     try:
         # llm call
         llm = Tongyi()
-        llm.model_name = 'qwen-max'
+        # llm.model_name = 'qwen-max'
+        llm.model_name ='qwen-max-longcontext'
+        # llm.model_name = 'qwen-plus'
         messages=json.dumps([{"role": "user", "content": prompt}])
+        print(f"messages:[{messages}]")
         response = llm.invoke(messages)
+
+        # 后处理
+        if(response.strip().startswith("```json")):
+            response = response.strip().split("```json")[1].strip().split("```")[0].strip()
+
+        print(f"response:[{response}]")
         return response
     except Exception as e:
         print(f"TOKEN LIMIT EXCEEDED: {e}")
@@ -342,7 +360,7 @@ def get_embedding(text, model="text-embedding-ada-002"):
     text = text.replace("\n", " ")
     if not text:
         text = "this is blank"
-    #SimAiWorld/reverie/backend_server/reverie.py
+
     tokenizer = GPT2TokenizerFast.from_pretrained('../../models/text-embedding-ada-002')
     emb = tokenizer.encode(text)
     print("emb------------:",emb)

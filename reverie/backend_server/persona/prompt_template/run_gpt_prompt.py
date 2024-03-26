@@ -145,6 +145,8 @@ def run_gpt_prompt_daily_plan(persona,
   prompt_template = "persona/prompt_template/v2/daily_planning_v6.txt"
   prompt_input = create_prompt_input(persona, wake_up_hour, test_input)
   prompt = generate_prompt(prompt_input, prompt_template)
+
+
   fail_safe = get_fail_safe()
 
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
@@ -359,7 +361,8 @@ def run_gpt_prompt_task_decomp(persona,
 
   def __func_clean_up(gpt_response, prompt=""):
     print ("TOODOOOOOO")
-    print (gpt_response)
+    print (f"gpt_response:[{gpt_response}]")
+    print (f"prompt:[{prompt}]")
     print ("-==- -==- -==- ")
 
     # TODO SOMETHING HERE sometimes fails... See screenshot
@@ -367,23 +370,23 @@ def run_gpt_prompt_task_decomp(persona,
     _cr = []
     cr = []
     for count, i in enumerate(temp): 
+      # if (i.find("duration in minutes:")>0):
       if count != 0: 
         _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
       else: 
         _cr += [i]
+
     for count, i in enumerate(_cr): 
       k = [j.strip() for j in i.split("(duration in minutes:")]
-
-      if(len(k)==1 and k[0]==''):
+      if(k==['']):
         continue
-      else:
-        print("---------k------------:",k)
-        if(len(k)>2):
-          task = k[0]
-          if task[-1] == ".": 
-            task = task[:-1]
-          duration = int(k[1].split(",")[0].strip())
-          cr += [[task, duration]]
+      
+      if(len(k)>1):
+        task = k[0]
+        if task[-1] == ".": 
+          task = task[:-1]
+        duration = int(k[1].replace(")","").split(",")[0].strip())
+        cr += [[task, duration]]
 
     total_expected_min = int(prompt.split("(total duration in minutes")[-1]
                                    .split("):")[0].strip())
@@ -394,11 +397,10 @@ def run_gpt_prompt_task_decomp(persona,
     for count, i in enumerate(cr): 
       i_task = i[0] 
       i_duration = i[1]
-
       i_duration -= (i_duration % 5)
       if i_duration > 0: 
         for j in range(i_duration): 
-          curr_min_slot += [(i_task, count)]       
+          curr_min_slot += [(i_task, count)]
     curr_min_slot = curr_min_slot[1:]   
 
     if len(curr_min_slot) > total_expected_min: 
@@ -445,9 +447,10 @@ def run_gpt_prompt_task_decomp(persona,
   fail_safe = get_fail_safe()
 
   print ("?????")
-  print (prompt)
+  print ("prompt: <",prompt,">")
   output = safe_generate_response(prompt, gpt_param, 5, get_fail_safe(),
                                    __func_validate, __func_clean_up)
+  print ("output: <",output,">")
 
   # TODO THERE WAS A BUG HERE... 
   # This is for preventing overflows...
@@ -464,6 +467,7 @@ def run_gpt_prompt_task_decomp(persona,
   # print (prompt_input)
   # print (prompt)
   print (output)
+  # []
 
   fin_output = []
   time_sum = 0
@@ -480,6 +484,7 @@ def run_gpt_prompt_task_decomp(persona,
     ftime_sum += fi_duration
   
   # print ("for debugging... line 365", fin_output)
+  # for debugging... line 365 []
   fin_output[-1][1] += (duration - ftime_sum)
   output = fin_output 
 
@@ -619,6 +624,8 @@ def run_gpt_prompt_action_sector(action_description,
   prompt_input = create_prompt_input(action_description, persona, maze)
   prompt = generate_prompt(prompt_input, prompt_template)
 
+
+
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
@@ -712,18 +719,20 @@ def run_gpt_prompt_action_arena(action_description,
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
-  prompt_template = "persona/prompt_template/v1/action_location_object_vMar11.txt"
+  # prompt_template = "persona/prompt_template/v1/action_location_object_vMar11.txt"
+  prompt_template = "persona/prompt_template/v1/action_location_object_xj.txt"
   prompt_input = create_prompt_input(action_description, persona, maze, act_world, act_sector)
   prompt = generate_prompt(prompt_input, prompt_template)
 
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  print (output)
-  # y = f"{act_world}:{act_sector}"
-  # x = [i.strip() for i in persona.s_mem.get_str_accessible_sector_arenas(y).split(",")]
-  # if output not in x: 
-  #   output = random.choice(x)
+  print (f"output:[{output}]")
+
+  y = f"{act_world}:{act_sector}"
+  x = [i.strip() for i in persona.s_mem.get_str_accessible_sector_arenas(y).split(",")]
+  if output not in x: 
+    output = random.choice(x)
 
   if debug or verbose: 
     print_run_prompts(prompt_template, persona, gpt_param, 
@@ -946,7 +955,8 @@ def run_gpt_prompt_event_triple(action_description, persona, verbose=False):
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 30, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": ["\n"]}
-  prompt_template = "persona/prompt_template/v2/generate_event_triple_v1.txt"
+  # prompt_template = "persona/prompt_template/v2/generate_event_triple_v1.txt"
+  prompt_template = "persona/prompt_template/v2/generate_event_triple_xj.txt"
   prompt_input = create_prompt_input(action_description, persona)
   prompt = generate_prompt(prompt_input, prompt_template)
   fail_safe = get_fail_safe(persona) ########
@@ -1079,7 +1089,8 @@ def run_gpt_prompt_act_obj_event_triple(act_game_object, act_obj_desc, persona, 
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 30, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": ["\n"]}
-  prompt_template = "persona/prompt_template/v2/generate_event_triple_v1.txt"
+  # prompt_template = "persona/prompt_template/v2/generate_event_triple_v1.txt"
+  prompt_template = "persona/prompt_template/v2/generate_event_triple_xj.txt"
   prompt_input = create_prompt_input(act_game_object, act_obj_desc)
   prompt = generate_prompt(prompt_input, prompt_template)
   fail_safe = get_fail_safe(act_game_object)
@@ -2135,6 +2146,9 @@ def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=Fal
   prompt_input = create_prompt_input(persona, statements, n)
   prompt = generate_prompt(prompt_input, prompt_template)
 
+
+
+
   fail_safe = get_fail_safe(n)
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
@@ -2185,6 +2199,9 @@ def run_gpt_prompt_insight_and_guidance(persona, statements, n, test_input=None,
   prompt_template = "persona/prompt_template/v2/insight_and_evidence_v1.txt"
   prompt_input = create_prompt_input(persona, statements, n)
   prompt = generate_prompt(prompt_input, prompt_template)
+
+
+
 
   fail_safe = get_fail_safe(n)
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
@@ -2511,6 +2528,18 @@ def run_gpt_prompt_summarize_ideas(persona, statements, question, test_input=Non
     except:
       return False 
 
+
+# def get_embedding(text, model="text-embedding-ada-002"):
+#     text = text.replace("\n", " ")
+#     if not text:
+#         text = "this is blank"
+#     #SimAiWorld/reverie/backend_server/reverie.py
+#     tokenizer = GPT2TokenizerFast.from_pretrained('../../models/text-embedding-ada-002')
+#     emb = tokenizer.encode(text)
+#     print("emb------------:",emb)
+#     return emb
+
+
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 16") ########
   gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
@@ -2609,6 +2638,9 @@ def run_gpt_prompt_generate_next_convo_line(persona, interlocutor_desc, prev_con
   prompt_template = "persona/prompt_template/v2/generate_next_convo_line_v1.txt"
   prompt_input = create_prompt_input(persona, interlocutor_desc, prev_convo, retrieved_summary)
   prompt = generate_prompt(prompt_input, prompt_template)
+
+
+
 
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,

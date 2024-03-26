@@ -56,7 +56,7 @@ class MemoryTree:
     EXAMPLE STR OUTPUT
       "bedroom, kitchen, dining room, office, bathroom"
     """
-    x = ", ".join(list(self.tree[curr_world].keys()))
+    x = ", ".join(list(self.tree[curr_world.replace("Answer: ", "").replace("{", "").replace("}", "").replace("(", "").replace(")", "")].keys()))
     return x
 
 
@@ -75,7 +75,7 @@ class MemoryTree:
     EXAMPLE STR OUTPUT
       "bedroom, kitchen, dining room, office, bathroom"
     """
-    curr_world, curr_sector = sector.split(":")
+    curr_world, curr_sector = sector.replace("Answer: ", "").replace("{", "").replace("}", "").replace("(", "").replace(")", "").split(":")
     if not curr_sector: 
       return ""
     x = ", ".join(list(self.tree[curr_world][curr_sector].keys()))
@@ -96,7 +96,7 @@ class MemoryTree:
     EXAMPLE STR OUTPUT
       "phone, charger, bed, nightstand"
     """
-    curr_world, curr_sector, curr_arena = arena.replace("{", "").replace("}", "").split(":")
+    curr_world, curr_sector, curr_arena = arena.replace("Answer: ", "").replace("{", "").replace("}", "").replace("(", "").replace(")", "").split(":")
 
     if not curr_arena: 
       return ""
