@@ -383,6 +383,7 @@ def GPT_request(prompt, gpt_parameter):
         # # llm.model_name = 'qwen-plus'
         # messages=json.dumps([{"role": "user", "content": prompt}])
         print(f"messages:[{prompt}]")
+        print(f"gpt_parameter:[{gpt_parameter}]")
         response = llm.invoke(prompt,gpt_parameter)
 
         # 后处理
