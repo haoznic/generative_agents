@@ -91,10 +91,10 @@ class MyQwen():
             
         if(gpt_parameter!=None):
             stop=gpt_parameter["stop"]
-            if(isinstance(stop, list)):
-                stop=stop[0]
-            # print(f"stop:[{stop}]")
-            response = response.split(stop)[0]
+            if(stop!=None):
+                if(isinstance(stop, list)):
+                    stop=stop[0]
+                response = response.split(stop)[0]
             
         if(response.endswith("\n[(")):
             response = response.split("\n[(")[0]
@@ -378,21 +378,15 @@ def GPT_request(prompt, gpt_parameter):
     temp_sleep()
 
     try:
-        # # llm call
-        # llm = Tongyi()
-        # # llm.model_name = 'qwen-max'
-        # llm.model_name ='qwen-max-longcontext'
-        # # llm.model_name = 'qwen-plus'
-        # messages=json.dumps([{"role": "user", "content": prompt}])
-        print(f"messages 1:[{prompt}]")
-        print(f"gpt_parameter 1:[{gpt_parameter}]")
+        # print(f"messages 1:[{prompt}]")
+        # print(f"gpt_parameter 1:[{gpt_parameter}]")
         response = llm.invoke(prompt,gpt_parameter)
-        print(f"response 1:[{response}]")
+        # print(f"response 1:[{response}]")
         # 后处理
         if(response.strip().startswith("```json")):
             response = response.strip().split("```json")[1].strip().split("```")[0].strip()
 
-        print(f"response 2:[{response}]")
+        # print(f"response 2:[{response}]")
         return response
     except Exception as e:
         print(f"TOKEN LIMIT EXCEEDED: {e}")
