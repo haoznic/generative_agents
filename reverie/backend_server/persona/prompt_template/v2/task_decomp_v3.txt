@@ -11,11 +11,12 @@ Variables:
 !<INPUT 7>! -- Persona first names
 
 <commentblockmarker>###</commentblockmarker>
-Describe subtasks in 5 min increments. 
-请参考以下Kelly Bronson案例的结构，按五分钟一个任务描述任务，续写主人公后面的任务。
-请注意续写任务的基本结构为三段内容：主人公在做什么 (duration in minutes: 5, minutes left: 5)
-也就是：主人公在做什么，花了多长时间，还剩多长时间。请不要遗漏后面(duration in minutes: 5, minutes left: 5)的信息。
-案例如下：
+Describe subtasks in 5 min increments. You must provide subtasks from !<INPUT 5>! (total duration in minutes !<INPUT 6>!).
+You must not continue with the remaining tasks.
+Do not moving on to the next hour.
+When (minutes left: 0), stop talking, and finish this work.
+
+请参考按照如下案例：
 ---
 Name: Kelly Bronson
 Age: 35
@@ -36,6 +37,7 @@ In 5 min increments, list the subtasks Kelly does when Kelly is working on the n
 7) Kelly is making final changes to the lesson plan. (duration in minutes: 15, minutes left: 15)
 8) Kelly is printing the lesson plan. (duration in minutes: 10, minutes left: 5)
 9) Kelly is putting the lesson plan in her bag. (duration in minutes: 5, minutes left: 0)
+
 当前待描述的任务如下
 ---
 !<INPUT 0>!

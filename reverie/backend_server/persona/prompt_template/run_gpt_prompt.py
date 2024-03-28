@@ -290,6 +290,13 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
   if(output.startswith(the_end)):
     output = output.split(the_end)[1].strip()
   
+  the_end_name = the_end.split(' ')[0]
+  if(output.startswith(the_end_name+" has")):
+    output = output.split(the_end_name+" has")[1].strip()
+  elif(output.startswith(the_end_name+" ")):
+    output = output.split(the_end_name+" ")[1].strip()
+  
+  
   if debug or verbose: 
     print_run_prompts(prompt_template, persona, gpt_param, 
                       prompt_input, prompt, output)
