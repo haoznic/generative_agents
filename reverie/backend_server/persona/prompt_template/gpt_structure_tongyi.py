@@ -6,6 +6,7 @@ Description: Wrapper functions for calling OpenAI APIs.
 """
 import json
 import random
+import numpy as np
 # import openai
 import time
 
@@ -54,7 +55,8 @@ class MyQwen():
         model_inputs = self.tokenizer([text], return_tensors="pt").to(self.device)
         
         if(gpt_parameter!=None):
-            t = 0.1 if gpt_parameter["temperature"]==0 else gpt_parameter["temperature"]
+            t = np.max([0.1, gpt_parameter["temperature"]])
+            # t = 0.1 if gpt_parameter["temperature"]==0 else gpt_parameter["temperature"]
             generated_ids = self.model.generate(
                 model_inputs.input_ids,
                 max_new_tokens=gpt_parameter["max_tokens"],
