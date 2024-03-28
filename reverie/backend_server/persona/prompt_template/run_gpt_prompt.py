@@ -374,8 +374,8 @@ def run_gpt_prompt_task_decomp(persona,
 
   def __func_clean_up(gpt_response, prompt=""):
     print ("TOODOOOOOO")
-    print (f"gpt_response:[{gpt_response}]")
-    print (f"prompt:[{prompt}]")
+    # print (f"__func_clean_up gpt_response:[{gpt_response}]")
+    # print (f"__func_clean_up prompt:[{prompt}]")
     print ("-==- -==- -==- ")
 
     # TODO SOMETHING HERE sometimes fails... See screenshot
@@ -388,7 +388,6 @@ def run_gpt_prompt_task_decomp(persona,
         _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
       else: 
         _cr += [i]
-
     for count, i in enumerate(_cr): 
       k = [j.strip() for j in i.split("(duration in minutes:")]
       if(k==['']):
@@ -402,15 +401,34 @@ def run_gpt_prompt_task_decomp(persona,
         duration = int(k[1].replace(")","").split(",")[0].strip())
         cr += [[task, duration]]
 
+    if(len(cr) == 0): 
+      for count, i in enumerate(temp): 
+        if(i.find(" minutes, minutes left:")>0):
+          minutes_extracted = 0
+          match = re.search(r'\((\d+) minutes', input_string)
+          # 提取任务名称
+          task_name = i.split('(')[0].strip()
+          if(task_name.find("is")>0):
+            task_name = task_name.split('is')[1].strip()
+          if(task_name.find(")")>0):
+            task_name = task_name.split(')')[1].strip()
+          if match:
+              # 提取并输出找到的分钟数
+              minutes_extracted = match.group(1)
+          else:
+              continue
+              # print("No matching minute number found in the string.")
+          cr += [[task_name, minutes_extracted]]
+    
     total_expected_min = int(prompt.split("(total duration in minutes")[-1]
                                    .split("):")[0].strip())
-    
+
     # TODO -- now, you need to make sure that this is the same as the sum of 
     #         the current action sequence. 
     curr_min_slot = [["dummy", -1],] # (task_name, task_index)
     for count, i in enumerate(cr): 
       i_task = i[0] 
-      i_duration = i[1]
+      i_duration = int(i[1])
       i_duration -= (i_duration % 5)
       if i_duration > 0: 
         for j in range(i_duration): 
@@ -427,7 +445,6 @@ def run_gpt_prompt_task_decomp(persona,
         last_task = curr_min_slot[-1]
         for i in range(total_expected_min - len(curr_min_slot)):
           curr_min_slot += [last_task]
-
 
     cr_ret = [["dummy", -1],]
     for task, task_index in curr_min_slot: 
