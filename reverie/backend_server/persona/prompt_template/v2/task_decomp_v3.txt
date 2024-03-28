@@ -13,8 +13,9 @@ Variables:
 <commentblockmarker>###</commentblockmarker>
 Describe subtasks in 5 min increments. You must provide subtasks from !<INPUT 5>! (total duration in minutes !<INPUT 6>!).
 You must not continue with the remaining tasks.
-Do not moving on to the next hour.
+Do not move on to the next hour.
 When (minutes left: 0), stop talking, and finish this work.
+Do not move on to the next task.
 
 请参考按照如下案例：
 ---
