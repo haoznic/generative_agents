@@ -7,6 +7,8 @@ Variables:
 
 <commentblockmarker>###</commentblockmarker>
 Task: Turn the input into (subject, predicate, object). 
+请生成主谓宾三元组，即 (subject, predicate, object)
+参考案例如下：
 
 Input: Sam Johnson is eating breakfast. 
 Output: (Dolores Murphy, eat, breakfast) 
@@ -26,5 +28,7 @@ Output: (Percy Liang, teach, students)
 Input: Merrie Morris is running on a treadmill. 
 Output: (Merrie Morris, run, treadmill)
 ---
+
+现在请生成：
 Input: !<INPUT 0>! is !<INPUT 1>!. 
 Output: 
