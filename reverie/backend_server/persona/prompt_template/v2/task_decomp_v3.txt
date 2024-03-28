@@ -11,8 +11,10 @@ Variables:
 !<INPUT 7>! -- Persona first names
 
 <commentblockmarker>###</commentblockmarker>
-Describe subtasks in 5 min increments. 请参考以下Kelly Bronson案例的结构，按五分钟一个任务描述任务，续写任务，
-请注意基本结构为：主人公在做什么 (duration in minutes: 5, minutes left: 5)，也就是说花了多长时间，还剩多长时间
+Describe subtasks in 5 min increments. 
+请参考以下Kelly Bronson案例的结构，按五分钟一个任务描述任务，续写主人公后面的任务。
+请注意续写任务的基本结构为三段内容：主人公在做什么 (duration in minutes: 5, minutes left: 5)
+也就是：主人公在做什么，花了多长时间，还剩多长时间。请不要遗漏后面(duration in minutes: 5, minutes left: 5)的信息。
 案例如下：
 ---
 Name: Kelly Bronson
