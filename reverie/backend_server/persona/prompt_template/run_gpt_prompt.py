@@ -200,7 +200,10 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
     prompt_ending = f"[(ID:{get_random_alphanumeric()})"
     prompt_ending += f" {persona.scratch.get_str_curr_date_str()}"
     prompt_ending += f" -- {curr_hour_str}] Activity:"
-    prompt_ending += f" {persona.scratch.get_str_firstname()} is"
+    
+    #xj_debug
+    the_end =  f"{persona.scratch.get_str_firstname()} is"
+    prompt_ending += f" {the_end}"
 
     if intermission2: 
       intermission2 = f"\n{intermission2}"
@@ -217,7 +220,7 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
       prompt_input += [""]
     prompt_input += [prompt_ending]
 
-    return prompt_input
+    return prompt_input,the_end
 
   def __func_clean_up(gpt_response, prompt=""):
     cr = gpt_response.strip()
@@ -272,7 +275,7 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
                "temperature": 0.5, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": ["\n"]}
   prompt_template = "persona/prompt_template/v2/generate_hourly_schedule_v2.txt"
-  prompt_input = create_prompt_input(persona, 
+  prompt_input,the_end = create_prompt_input(persona, 
                                      curr_hour_str, 
                                      p_f_ds_hourly_org,
                                      hour_str, 
@@ -283,6 +286,9 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
   
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
+    
+  if(output.startswith(the_end)):
+    output = output.split(the_end)[1].strip()
   
   if debug or verbose: 
     print_run_prompts(prompt_template, persona, gpt_param, 
