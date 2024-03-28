@@ -14,33 +14,146 @@ from transformers import GPT2TokenizerFast
 
 # openai.api_key = random.choice(openai_api_key)
 
-from langchain_community.llms import Tongyi
+# from langchain_community.llms import Tongyi
+from modelscope import AutoModelForCausalLM, AutoTokenizer
 
 # set os path 
 import os
 # import sys
 # sys.path.append('../../../')
 
-with open("../config.json","r") as fp:
-    settings = json.load(fp)
-    os.environ["DASHSCOPE_API_KEY"] = settings["DASHSCOPE_API_KEY"]  
+# with open("../config.json","r") as fp:
+#     settings = json.load(fp)
+#     os.environ["DASHSCOPE_API_KEY"] = settings["DASHSCOPE_API_KEY"]  
 
-def temp_sleep(seconds=0.5):
+def temp_sleep(seconds=0.1):
     time.sleep(seconds)
 
+    
+
+class MyQwen():
+    def __init__(self):
+        self.device = "cuda" # the device to load the model onto
+        self.modelpath ="/mnt/workspace/project/llm/weights/qwen/Qwen1.5-1.8B-Chat-GPTQ-Int8"
+        self.model = AutoModelForCausalLM.from_pretrained(
+            self.modelpath,
+            device_map="auto"
+        )
+        self.tokenizer = AutoTokenizer.from_pretrained(self.modelpath)
+        
+    def invoke(self, prompt: object, gpt_parameter:object=None) -> object:
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ]
+        text = self.tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True
+        )
+        model_inputs = self.tokenizer([text], return_tensors="pt").to(self.device)
+        
+        if(gpt_parameter!=None):
+            t = 0.1 if gpt_parameter["temperature"]==0 else gpt_parameter["temperature"]
+            generated_ids = self.model.generate(
+                model_inputs.input_ids,
+                max_new_tokens=gpt_parameter["max_tokens"],
+                temperature=t,
+                top_p=gpt_parameter["top_p"],
+                # stop=gpt_parameter["stop"],
+            )
+        else:
+            generated_ids = self.model.generate(
+                model_inputs.input_ids,
+                max_new_tokens=512
+            )
+    #     messages=[{"role": "user", "content": prompt}],
+    # #         temperature=gpt_parameter["temperature"],
+    # #         max_tokens=gpt_parameter["max_tokens"],
+    # #         top_p=gpt_parameter["top_p"],
+    # #         frequency_penalty=gpt_parameter["frequency_penalty"],
+    # #         presence_penalty=gpt_parameter["presence_penalty"],
+    # #         stream=gpt_parameter["stream"],
+    # #         stop=gpt_parameter["stop"], )
+        # stop=gpt_parameter["stop"]
+        # 'stop': ['\n']
+        generated_ids = [
+            output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
+        ]
+
+        response = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+        
+        # 后处理
+        if("Activity: " in response):
+            response = response.split("Activity: ")[1].split("[(ID:")[0]
+            
+        if(gpt_parameter!=None):
+            stop=gpt_parameter["stop"]
+            if(isinstance(stop, list)):
+                stop=stop[0]
+            # print(f"stop:[{stop}]")
+            response = response.split(stop)[0]
+            
+        if(response.endswith("\n[(")):
+            response = response.split("\n[(")[0]
+        
+        
+        return response
+    
+    def embedding(self, text: object) -> object:
+        text = text.replace("\n", " ")
+        if not text:
+            text = "this is blank"
+        emb = self.tokenizer.encode(text)
+        # print("emb------------:",emb)
+        return emb
+
+llm =  MyQwen() 
+    
 def Tongyi_request(prompt: object) -> object:
     temp_sleep()
 
     try:
-        # llm call
-        llm = Tongyi()
-        # llm.model_name = 'qwen-max'
-        llm.model_name ='qwen-max-longcontext'
-        # llm.model_name = 'qwen-plus'
-        messages=json.dumps([{"role": "user", "content": prompt}])
-        print("messages: [",messages,"]")
-        # print("os.environ[DASHSCOPE_API_KEY]:",os.environ["DASHSCOPE_API_KEY"])
-        response = llm.invoke(messages)
+        response = llm.invoke(prompt)
+
+#     prompt = "Give me a short introduction to large language model."
+#     messages = [
+#         {"role": "system", "content": "You are a helpful assistant."},
+#         {"role": "user", "content": prompt}
+#     ]
+    
+#     text = tokenizer.apply_chat_template(
+#         messages,
+#         tokenize=False,
+#         add_generation_prompt=True
+#     )
+#     model_inputs = tokenizer([text], return_tensors="pt").to(device)
+
+#     generated_ids = model.generate(
+#         model_inputs.input_ids,
+#         max_new_tokens=512
+#     )
+#     generated_ids = [
+#         output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
+#     ]
+
+#     response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+
+
+        
+        
+        # # llm call
+        # llm = Tongyi()
+        # # llm.model_name = 'qwen-max'
+        # llm.model_name ='qwen-max-longcontext'
+        # # llm.model_name = 'qwen-plus'
+        # messages=json.dumps([{"role": "user", "content": prompt}])
+        # print("messages: [",messages,"]")
+        # # print("os.environ[DASHSCOPE_API_KEY]:",os.environ["DASHSCOPE_API_KEY"])
+        # response = llm.invoke(messages)
+        
+        
+        
         # 后处理
         if(response.strip().startswith("```json")):
             response = response.strip().split("```json")[1].strip().split("```")[0].strip()
@@ -263,20 +376,20 @@ def GPT_request(prompt, gpt_parameter):
     temp_sleep()
 
     try:
-        # llm call
-        llm = Tongyi()
-        # llm.model_name = 'qwen-max'
-        llm.model_name ='qwen-max-longcontext'
-        # llm.model_name = 'qwen-plus'
-        messages=json.dumps([{"role": "user", "content": prompt}])
-        print(f"messages:[{messages}]")
-        response = llm.invoke(messages)
+        # # llm call
+        # llm = Tongyi()
+        # # llm.model_name = 'qwen-max'
+        # llm.model_name ='qwen-max-longcontext'
+        # # llm.model_name = 'qwen-plus'
+        # messages=json.dumps([{"role": "user", "content": prompt}])
+        # print(f"messages:[{messages}]")
+        response = llm.invoke(prompt,gpt_parameter)
 
         # 后处理
         if(response.strip().startswith("```json")):
             response = response.strip().split("```json")[1].strip().split("```")[0].strip()
 
-        print(f"response:[{response}]")
+        # print(f"response:[{response}]")
         return response
     except Exception as e:
         print(f"TOKEN LIMIT EXCEEDED: {e}")
@@ -357,14 +470,18 @@ def safe_generate_response(prompt,
 
 
 def get_embedding(text, model="text-embedding-ada-002"):
-    text = text.replace("\n", " ")
-    if not text:
-        text = "this is blank"
-
-    tokenizer = GPT2TokenizerFast.from_pretrained('../../models/text-embedding-ada-002')
-    emb = tokenizer.encode(text)
-    print("emb------------:",emb)
+    emb = llm.embedding(text)
     return emb
+
+# def get_embedding(text, model="text-embedding-ada-002"):
+#     text = text.replace("\n", " ")
+#     if not text:
+#         text = "this is blank"
+
+#     tokenizer = GPT2TokenizerFast.from_pretrained('../../models/text-embedding-ada-002')
+#     emb = tokenizer.encode(text)
+#     print("emb------------:",emb)
+#     return emb
 
 
 # def get_embedding(text, model="text-embedding-ada-002"):
