@@ -969,7 +969,8 @@ def run_gpt_prompt_event_triple(action_description, persona, verbose=False):
   fail_safe = get_fail_safe(persona) ########
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  output = (persona.name, output[0], output[1])
+  # output = (persona.name, output[0], output[1])
+  output = (persona.name, output[1], output[2])
 
   if debug or verbose: 
     print_run_prompts(prompt_template, persona, gpt_param, 
@@ -1103,7 +1104,8 @@ def run_gpt_prompt_act_obj_event_triple(act_game_object, act_obj_desc, persona, 
   fail_safe = get_fail_safe(act_game_object)
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  output = (act_game_object, output[0], output[1])
+  # output = (act_game_object, output[0], output[1])
+  output = (act_game_object, output[1], output[2])
 
   if debug or verbose: 
     print_run_prompts(prompt_template, persona, gpt_param, 
