@@ -55,8 +55,8 @@ class MyQwen():
         model_inputs = self.tokenizer([text], return_tensors="pt").to(self.device)
         
         if(gpt_parameter!=None):
-            t = np.max([0.1, gpt_parameter["temperature"]])
-            # t = 0.1 if gpt_parameter["temperature"]==0 else gpt_parameter["temperature"]
+            # t = np.max([0.1, gpt_parameter["temperature"]])
+            t = 0.1 if gpt_parameter["temperature"]==0 else gpt_parameter["temperature"]
             generated_ids = self.model.generate(
                 model_inputs.input_ids,
                 max_new_tokens=gpt_parameter["max_tokens"],
@@ -378,10 +378,10 @@ def GPT_request(prompt, gpt_parameter):
     temp_sleep()
 
     try:
-        # print(f"messages 1:[{prompt}]")
-        # print(f"gpt_parameter 1:[{gpt_parameter}]")
+        print(f"messages 1:[{prompt}]")
+        print(f"gpt_parameter 1:[{gpt_parameter}]")
         response = llm.invoke(prompt,gpt_parameter)
-        # print(f"response 1:[{response}]")
+        print(f"response 1:[{response}]")
         # 后处理
         if(response.strip().startswith("```json")):
             response = response.strip().split("```json")[1].strip().split("```")[0].strip()

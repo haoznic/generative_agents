@@ -12,6 +12,8 @@ Variables:
 
 <commentblockmarker>###</commentblockmarker>
 Describe subtasks in 5 min increments. 
+请参考以下Kelly Bronson案例的结构，按五分钟一个任务描述任务，续写任务，
+基本结构为 主人公在做什么 (duration in minutes: 5, minutes left: 5)，也就是说花了多长时间，还剩多长时间
 ---
 Name: Kelly Bronson
 Age: 35
