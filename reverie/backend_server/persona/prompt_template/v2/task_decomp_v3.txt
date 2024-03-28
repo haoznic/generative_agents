@@ -11,11 +11,14 @@ Variables:
 !<INPUT 7>! -- Persona first names
 
 <commentblockmarker>###</commentblockmarker>
-Describe subtasks in 5 min increments. You must provide subtasks from !<INPUT 5>! (total duration in minutes !<INPUT 6>!).
-You must not continue with the remaining tasks.
-Do not move on to the next hour.
+Describe subtasks in 5 min increments. 
+You must provide subtasks from !<INPUT 5>! (total duration in minutes !<INPUT 6>!).
 When (minutes left: 0), stop talking, and finish this work.
-Do not move on to the next task.
+You must not continue with the remaining tasks.
+You must not move on to the next hour.
+You must not move on to the next task.
+You must not continue to other task.
+or you are wasting my money!!!
 
 请参考按照如下案例：
 ---
