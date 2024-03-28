@@ -382,15 +382,15 @@ def GPT_request(prompt, gpt_parameter):
         # llm.model_name ='qwen-max-longcontext'
         # # llm.model_name = 'qwen-plus'
         # messages=json.dumps([{"role": "user", "content": prompt}])
-        print(f"messages:[{prompt}]")
-        print(f"gpt_parameter:[{gpt_parameter}]")
+        print(f"messages 1:[{prompt}]")
+        print(f"gpt_parameter 1:[{gpt_parameter}]")
         response = llm.invoke(prompt,gpt_parameter)
-
+        print(f"response 1:[{response}]")
         # 后处理
         if(response.strip().startswith("```json")):
             response = response.strip().split("```json")[1].strip().split("```")[0].strip()
 
-        print(f"response:[{response}]")
+        print(f"response 2:[{response}]")
         return response
     except Exception as e:
         print(f"TOKEN LIMIT EXCEEDED: {e}")
