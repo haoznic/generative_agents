@@ -35,7 +35,7 @@ def temp_sleep(seconds=0.1):
 class MyQwen():
     def __init__(self):
         self.device = "cuda" # the device to load the model onto
-        self.modelpath ="/mnt/workspace/project/llm/weights/qwen/Qwen1.5-1.8B-Chat-GPTQ-Int8"
+        self.modelpath ="/mnt/workspace/project/llm/weights/qwen/Qwen1.5-7B-Chat-GPTQ-Int8"
         self.model = AutoModelForCausalLM.from_pretrained(
             self.modelpath,
             device_map="auto"
