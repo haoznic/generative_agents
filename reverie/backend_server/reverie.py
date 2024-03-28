@@ -398,6 +398,12 @@ class ReverieServer:
           #  "persona": {"Klaus Mueller": {"movement": [38, 12]}}, 
           #  "meta": {curr_time: <datetime>}}
           curr_move_file = f"{sim_folder}/movement/{self.step}.json"
+
+          mm_dir = f"{sim_folder}/movement"
+          import os 
+          if (os.path.exists(mm_dir)==False):
+            os.mkdir(mm_dir)
+
           with open(curr_move_file, "w") as outfile: 
             outfile.write(json.dumps(movements, indent=2))
 
