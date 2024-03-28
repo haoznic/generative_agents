@@ -14,5 +14,6 @@ Hourly schedule format:
 ===
 !<INPUT 1>!
 !<INPUT 2>!
+请注意生成的Activity是一个小时内完成的一件基本事项，具体操作是可拆解的的。只需要回答做什么Activity，不要详细描述内容。
 !<INPUT 3>!!<INPUT 4>!
 !<INPUT 5>!
