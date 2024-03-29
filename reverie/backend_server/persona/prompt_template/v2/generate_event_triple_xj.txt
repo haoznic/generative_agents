@@ -28,6 +28,14 @@ Output: (Percy Liang, teach, students)
 Input: Merrie Morris is running on a treadmill. 
 Output: (Merrie Morris, run, treadmill)
 ---
+请同时注意主宾倒装的情况
+---
+Input: something is used
+Output: (something, is, used)
+---
+Input: room is used
+Output: (room, is, used)
+---
 
 现在请生成：
 Input: !<INPUT 0>! is !<INPUT 1>!. 
