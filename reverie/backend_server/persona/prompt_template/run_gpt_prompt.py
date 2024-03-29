@@ -405,7 +405,7 @@ def run_gpt_prompt_task_decomp(persona,
       for count, i in enumerate(temp): 
         if(i.find(" minutes, minutes left:")>0):
           minutes_extracted = 0
-          match = re.search(r'\((\d+) minutes', input_string)
+          match = re.search(r'\((\d+) minutes', i)
           # 提取任务名称
           task_name = i.split('(')[0].strip()
           if(task_name.find("is")>0):
