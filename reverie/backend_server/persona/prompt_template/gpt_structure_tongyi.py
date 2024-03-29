@@ -295,6 +295,7 @@ def ChatGPT_safe_generate_response(prompt,
     prompt += f"Output the response to the prompt above in json. {special_instruction}\n"
     prompt += "Example output json:\n"
     prompt += '{"output": "' + str(example_output) + '"}'
+    prompt += "\n只需要输出 output json，不需要别的内容"
 
     if verbose:
         print("CHAT GPT PROMPT")
