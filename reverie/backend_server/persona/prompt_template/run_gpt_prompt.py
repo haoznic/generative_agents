@@ -274,7 +274,8 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
                "temperature": 0.5, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": ["\n"]}
-  prompt_template = "persona/prompt_template/v2/generate_hourly_schedule_v2.txt"
+  prompt_template = "persona/prompt_template/v2/generate_hourly_schedule_xj.txt"
+    # prompt_template = "persona/prompt_template/v2/generate_hourly_schedule_v2.txt"
   prompt_input,the_end = create_prompt_input(persona, 
                                      curr_hour_str, 
                                      p_f_ds_hourly_org,
@@ -1133,7 +1134,7 @@ def run_gpt_prompt_act_obj_event_triple(act_game_object, act_obj_desc, persona, 
   def __func_validate(gpt_response, prompt=""): 
     try: 
       gpt_response = __func_clean_up(gpt_response, prompt="")
-      if len(gpt_response) != 2: 
+      if len(gpt_response) != 3: 
         return False
     except: return False
     return True 

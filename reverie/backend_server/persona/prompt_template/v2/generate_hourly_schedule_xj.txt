@@ -1,0 +1,31 @@
+generate_hourly_schedule_v2.txt
+
+Variables: 
+!<INPUT 0>! -- Schedule format
+!<INPUT 1>! -- Commonset
+!<INPUT 2>! -- prior_schedule
+!<INPUT 3>! -- intermission_str
+!<INPUT 4>! -- intermission 2
+!<INPUT 5>! -- prompt_ending
+
+<commentblockmarker>###</commentblockmarker>
+Hourly schedule format: 
+!<INPUT 0>!
+===
+!<INPUT 1>!
+!<INPUT 2>!
+请注意生成的Activity是一个小时内完成的一些任务事项，请根据人物背景介绍来设计一天中每个小时应该做什么，每次只需要设计一个小时内的任务。
+请不要展开描述任务的具体细节，也不需要解释为什么这么设计
+相邻两个小时之间的任务，可能会有所不同
+请注意时间点 AM 通常代表早上，PM 通常代表晚上:
+06:00 AM 是早晨6点，是起床吃早饭的时间。
+07:00 AM 是早晨7点，是起床吃早饭的时间。
+
+06:00 PM 指的是晚上6点，是吃晚饭的时间。
+07:00 PM 指的是晚上7点，是吃晚饭的时间。
+
+09:00 PM 现在到底是几点？
+10:00 PM 现在到底是几点？
+
+!<INPUT 3>!!<INPUT 4>!
+!<INPUT 5>!
