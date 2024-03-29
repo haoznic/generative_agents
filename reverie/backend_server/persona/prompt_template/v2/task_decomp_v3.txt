@@ -13,8 +13,11 @@ Variables:
 <commentblockmarker>###</commentblockmarker>
 Describe subtasks in 5 min increments. 
 You must provide subtasks from !<INPUT 5>! (total duration in minutes !<INPUT 6>!).
-You must reponse the time duration in the following format: (duration in minutes: X, minutes left: Y)
 When (minutes left: 0), stop talking, and finish this work.
+
+You must repond in following format: 
+1) somebody is doing something. (duration in minutes: X, minutes left: Y)
+
 You must not continue with the remaining tasks.
 You must not move on to the next hour.
 You must not move on to the next task.
