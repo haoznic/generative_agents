@@ -386,7 +386,6 @@ def GPT_request(prompt, gpt_parameter):
         if(response.strip().startswith("```json")):
             response = response.strip().split("```json")[1].strip().split("```")[0].strip()
 
-        # print(f"response 2:[{response}]")
         return response
     except Exception as e:
         print(f"TOKEN LIMIT EXCEEDED: {e}")

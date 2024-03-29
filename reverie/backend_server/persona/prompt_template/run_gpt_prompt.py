@@ -599,6 +599,7 @@ def run_gpt_prompt_action_sector(action_description,
 
 
   def __func_clean_up(gpt_response, prompt=""):
+    print(f"action_location_sector_v1 __func_clean_up gpt_response:[{gpt_response}]")
     cleaned_response = gpt_response.split("}")[0]
     return cleaned_response
 
@@ -660,6 +661,8 @@ def run_gpt_prompt_action_sector(action_description,
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
+  print(f"action_location_sector_v1 output:[{output}]")
+
   y = f"{maze.access_tile(persona.scratch.curr_tile)['world']}"
   x = [i.strip() for i in persona.s_mem.get_str_accessible_sectors(y).split(",")]
   if output not in x: 
@@ -737,8 +740,8 @@ def run_gpt_prompt_action_arena(action_description,
   def __func_validate(gpt_response, prompt=""): 
     if len(gpt_response.strip()) < 1: 
       return False
-    if "}" not in gpt_response:
-      return False
+    # if "}" not in gpt_response:
+    #   return False
     if "," in gpt_response: 
       return False
     return True
@@ -758,7 +761,7 @@ def run_gpt_prompt_action_arena(action_description,
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  print (f"output:[{output}]")
+  print(f"action_location_object_xj output:[{output}]")
 
   y = f"{act_world}:{act_sector}"
   x = [i.strip() for i in persona.s_mem.get_str_accessible_sector_arenas(y).split(",")]
@@ -940,7 +943,7 @@ def run_gpt_prompt_event_triple(action_description, persona, verbose=False):
   def __func_validate(gpt_response, prompt=""): 
     try: 
       gpt_response = __func_clean_up(gpt_response, prompt="")
-      if len(gpt_response) != 2: 
+      if len(gpt_response) != 3: 
         return False
     except: return False
     return True 
