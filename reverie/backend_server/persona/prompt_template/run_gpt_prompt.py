@@ -692,9 +692,14 @@ def run_gpt_prompt_action_sector(action_description,
 
   y = f"{maze.access_tile(persona.scratch.curr_tile)['world']}"
   x = [i.strip() for i in persona.s_mem.get_str_accessible_sectors(y).split(",")]
+
+  print(f"x:[{x}]")
+  print(f"y:[{y}]")
+
   if output not in x: 
     # output = random.choice(x)
     output = persona.scratch.living_area.split(":")[1]
+    print(f"persona.scratch.living_area: [{persona.scratch.living_area}]")
 
   print ("DEBUG", random.choice(x), "------", output)
 
