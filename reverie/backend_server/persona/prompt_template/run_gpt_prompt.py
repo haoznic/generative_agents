@@ -419,7 +419,28 @@ def run_gpt_prompt_task_decomp(persona,
               continue
               # print("No matching minute number found in the string.")
           cr += [[task_name, minutes_extracted]]
-    
+
+    if(len(cr) == 0): 
+      for count, i in enumerate(temp): 
+        if(i.find("(duration: ")>0):
+          minutes_extracted = 0
+          match = re.search(r'\(duration: (\d+),', i)
+          # 提取任务名称
+          task_name = i.split('(')[0].strip()
+          if(task_name.find("is")>0):
+            task_name = task_name.split('is')[1].strip()
+          if(task_name.find(")")>0):
+            task_name = task_name.split(')')[1].strip()
+          if(task_name.find(". ")>0):
+            task_name = task_name.split('. ')[1].strip()
+          if match:
+              # 提取并输出找到的分钟数
+              minutes_extracted = match.group(1)
+          else:
+              continue
+              # print("No matching minute number found in the string.")
+          cr += [[task_name, minutes_extracted]]
+    # (duration: 60
     total_expected_min = int(prompt.split("(total duration in minutes")[-1]
                                    .split("):")[0].strip())
 
