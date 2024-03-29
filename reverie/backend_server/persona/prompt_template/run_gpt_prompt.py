@@ -324,7 +324,9 @@ def run_gpt_prompt_task_decomp(persona,
     planning on waking up and doing her morning routine, 
     and from 07:00am ~08:00am, Maeve is planning on having breakfast.  
     """
-      
+    
+    print(persona)
+
     curr_f_org_index = persona.scratch.get_f_daily_schedule_hourly_org_index()
     all_indices = []
     # if curr_f_org_index > 0: 
@@ -356,6 +358,9 @@ def run_gpt_prompt_task_decomp(persona,
                       + datetime.timedelta(minutes=end_min)) 
         start_time_str = start_time.strftime("%H:%M%p")
         end_time_str = end_time.strftime("%H:%M%p")
+        
+        print(start_time_str, end_time_str,start_min, end_min)
+
         summ_str += f"{start_time_str} ~ {end_time_str}, {persona.name} is planning on {persona.scratch.f_daily_schedule_hourly_org[index][0]}, "
         if curr_f_org_index+1 == index:
           curr_time_range = f'{start_time_str} ~ {end_time_str}'
