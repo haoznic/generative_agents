@@ -314,7 +314,7 @@ class ReverieServer:
       # the content of this for loop. Otherwise, we just wait. 
       curr_env_file = f"{sim_folder}/environment/{self.step}.json"
 
-      print(f"curr_env_file:[{curr_env_file}], check_if_file_exists:[{check_if_file_exists(curr_env_file)}]")
+      # print(f"curr_env_file:[{curr_env_file}], check_if_file_exists:[{check_if_file_exists(curr_env_file)}]")
 
       if check_if_file_exists(curr_env_file):
         # If we have an environment file, it means we have a new perception

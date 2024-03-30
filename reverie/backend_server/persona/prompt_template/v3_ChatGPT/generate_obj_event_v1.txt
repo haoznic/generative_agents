@@ -12,6 +12,6 @@ Task: We want to understand the state of an object that is being used by someone
 
 Let's think step by step. 
 We want to know about !<INPUT 0>!'s state. 
-如果<INPUT 4>被人使用了，那么<INPUT 4> is occupied or busy, 这里需要回答 occupied 或 busy
+如果!<INPUT 4>!被人使用了，那么!<INPUT 4>! is occupied or busy, 这里需要回答 occupied 或 busy
 Step 1. !<INPUT 1>! is at/using the !<INPUT 2>!.
 Step 2. Describe the !<INPUT 3>!'s state: !<INPUT 4>! is
