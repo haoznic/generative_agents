@@ -346,7 +346,7 @@ def run_gpt_prompt_task_decomp(persona,
     summ_str = f'Today is {persona.scratch.curr_time.strftime("%B %d, %Y")}. '
     summ_str += f'From '
     for index in all_indices: 
-      print ("index", index)
+      # print ("index", index)
       if index < len(persona.scratch.f_daily_schedule_hourly_org): 
         start_min = 0
         for i in range(index): 
@@ -359,7 +359,7 @@ def run_gpt_prompt_task_decomp(persona,
         start_time_str = start_time.strftime("%H:%M%p")
         end_time_str = end_time.strftime("%H:%M%p")
         
-        print(start_time_str, end_time_str,start_min, end_min)
+        # print(start_time_str, end_time_str,start_min, end_min)
 
         summ_str += f"{start_time_str} ~ {end_time_str}, {persona.name} is planning on {persona.scratch.f_daily_schedule_hourly_org[index][0]}, "
         if curr_f_org_index+1 == index:
@@ -401,7 +401,7 @@ def run_gpt_prompt_task_decomp(persona,
       
       if(len(k)>1):
         task = k[0]
-        print(f"task: [{task}]")
+        # print(f"task: [{task}]")
         if task[-1] == ".": 
           task = task[:-1]
         duration = int(k[1].replace(")","").split(",")[0].strip())
@@ -695,13 +695,13 @@ def run_gpt_prompt_action_sector(action_description,
   y = f"{maze.access_tile(persona.scratch.curr_tile)['world']}"
   x = [i.strip() for i in persona.s_mem.get_str_accessible_sectors(y).split(",")]
 
-  print(f"x:[{x}]")
-  print(f"y:[{y}]")
+  # print(f"x:[{x}]")
+  # print(f"y:[{y}]")
 
   if output not in x: 
     # output = random.choice(x)
     output = persona.scratch.living_area.split(":")[1]
-    print(f"persona.scratch.living_area: [{persona.scratch.living_area}]")
+    # print(f"persona.scratch.living_area: [{persona.scratch.living_area}]")
 
   print ("DEBUG", random.choice(x), "------", output)
 
