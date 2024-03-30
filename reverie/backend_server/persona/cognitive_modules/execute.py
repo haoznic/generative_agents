@@ -92,6 +92,8 @@ def execute(persona, maze, personas, plan):
         maze.address_tiles["Johnson Park:park:park garden"] #ERRORRRRRRR
       else: 
         target_tiles = maze.address_tiles[plan]
+    print(f"maze.address_tiles: [{maze.address_tiles}]")
+    print(f"target_tiles: [{target_tiles}]")
 
     # There are sometimes more than one tile returned from this (e.g., a tabe
     # may stretch many coordinates). So, we sample a few here. And from that 
