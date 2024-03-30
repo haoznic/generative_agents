@@ -431,11 +431,12 @@ def generate_prompt(curr_input, prompt_lib_file):
     if type(curr_input) == type("string"):
         curr_input = [curr_input]
     curr_input = [str(i) for i in curr_input]
-
+    # print(f"curr_input:[{curr_input}]")
     f = open(prompt_lib_file, "r")
     prompt = f.read()
     f.close()
     for count, i in enumerate(curr_input):
+        # print(f"count:{count}, i:{i}")
         prompt = prompt.replace(f"!<INPUT {count}>!", i)
         time.sleep(1)
     if "<commentblockmarker>###</commentblockmarker>" in prompt:

@@ -620,10 +620,9 @@ def _determine_action(persona, maze):
   
 
 
-
   act_desp, act_dura = persona.scratch.f_daily_schedule[curr_index] 
 
-
+  print(f"ss-test act_desp:[{act_desp}], act_dura:[{act_dura}]")
 
   # Finding the target location of the action and creating action-related
   # variables.
