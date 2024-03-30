@@ -418,8 +418,7 @@ class ReverieServer:
           int_counter -= 1
 
           print("---------------------------------------")
-          print("self.step, int_counter,self.curr_time ")
-          print(self.step, int_counter, self.curr_time  )
+          print(f"self.step:{self.step}, int_counter:{int_counter}, self.curr_time:{self.curr_time}")
           print("---------------------------------------")
           
       # Sleep so we don't burn our machines. 
