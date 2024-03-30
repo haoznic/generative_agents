@@ -313,6 +313,9 @@ class ReverieServer:
       # new environment file that matches our step count. That's when we run 
       # the content of this for loop. Otherwise, we just wait. 
       curr_env_file = f"{sim_folder}/environment/{self.step}.json"
+
+      print(f"curr_env_file:[{curr_env_file}], check_if_file_exists:[{check_if_file_exists(curr_env_file)}]")
+
       if check_if_file_exists(curr_env_file):
         # If we have an environment file, it means we have a new perception
         # input to our personas. So we first retrieve it.
@@ -413,6 +416,11 @@ class ReverieServer:
           self.curr_time += datetime.timedelta(seconds=self.sec_per_step)
 
           int_counter -= 1
+
+          print("---------------------------------------")
+          print("self.step, int_counter,self.curr_time ")
+          print(self.step, int_counter, self.curr_time  )
+          print("---------------------------------------")
           
       # Sleep so we don't burn our machines. 
       time.sleep(self.server_sleep)
