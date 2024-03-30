@@ -882,6 +882,7 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
   
   def __func_clean_up(gpt_response, prompt=""):
     cr = gpt_response.strip()
+    print(f"ss-test __func_clean_up cr:[{cr}]")
     if len(cr) > 3:
       cr = cr[:3]
     return cr
