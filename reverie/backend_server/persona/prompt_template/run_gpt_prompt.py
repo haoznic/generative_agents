@@ -877,6 +877,7 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
     if "(" in action_description: 
       action_description = action_description.split("(")[-1].split(")")[0]
     prompt_input = [action_description]
+    print(f"ss-test action_description:[{action_description}], prompt_input:[{prompt_input}]")
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
