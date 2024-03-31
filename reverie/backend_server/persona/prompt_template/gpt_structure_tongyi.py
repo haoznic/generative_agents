@@ -17,7 +17,9 @@ from transformers import GPT2TokenizerFast
 
 # from langchain_community.llms import Tongyi
 from modelscope import AutoModelForCausalLM, AutoTokenizer
-
+import torch 
+from torch import nn
+from os.path import join as p_join
 # set os path 
 import os
 # import sys
@@ -36,6 +38,8 @@ class MyQwen():
     def __init__(self):
         self.device = "cuda" # the device to load the model onto
         self.modelpath ="/mnt/workspace/project/llm/weights/qwen/Qwen1.5-7B-Chat-GPTQ-Int8"
+        self.emb_dir ="/mnt/workspace/project/llm/weights/qwen/Qwen-7B-Embedding"
+        self.emb_model_path = self.emb_dir+"/qwen_7b_embed.pth"
         self.model = AutoModelForCausalLM.from_pretrained(
             self.modelpath,
             device_map="auto"
@@ -103,10 +107,19 @@ class MyQwen():
         return response
     
     def embedding(self, text: object) -> object:
-        text = text.replace("\n", " ")
-        if not text:
-            text = "this is blank"
-        emb = self.tokenizer.encode(text)
+        # tokenizer = AutoTokenizer.from_pretrained(self.modelpath, trust_remote_code=True)
+        ipts = self.tokenizer(text, return_tensors='pt')['input_ids']
+        embed_dict = torch.load(self.emb_model_path)
+        vocab_size, embd_dim = embed_dict['weight'].size()
+        embed = nn.Embedding(vocab_size, embd_dim)
+        # print(embed(ipts))
+        embed.load_state_dict(embed_dict)
+        emb = embed(ipts)
+
+        # text = text.replace("\n", " ")
+        # if not text:
+        #     text = "this is blank"
+        # emb = self.tokenizer.encode(text)
         # print("emb------------:",emb)
         return emb
 

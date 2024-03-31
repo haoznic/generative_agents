@@ -1402,14 +1402,29 @@ def run_gpt_prompt_decide_to_talk(persona, target_persona, retrieved,test_input=
     return prompt_input
   
   def __func_validate(gpt_response, prompt=""): 
-    try: 
-      if gpt_response.split("Answer in yes or no:")[-1].strip().lower() in ["yes", "no"]: 
-        return True
+    try:
+      if(gpt_response.find("Answer in yes or no:")>=0): 
+        if gpt_response.split("Answer in yes or no:")[-1].strip().lower() in ["yes", "no"]: 
+          return True
+      else:
+        gpt_response_lower = gpt_response.lower()
+        if(gpt_response_lower.lower().find("no")>=0):
+          return True
+        elif(gpt_response_lower.lower().find("yes")>=0):
+          return True
       return False     
     except:
       return False 
 
   def __func_clean_up(gpt_response, prompt=""):
+    if(gpt_response.find("Answer in yes or no:")>=0): 
+      return gpt_response.split("Answer in yes or no:")[-1].strip().lower()
+    else:
+      gpt_response_lower = gpt_response.lower()
+      if(gpt_response_lower.lower().find("no")>=0):
+        return "no"
+      elif(gpt_response_lower.lower().find("yes")>=0):
+        return "yes"
     return gpt_response.split("Answer in yes or no:")[-1].strip().lower()
 
   def get_fail_safe(): 
@@ -1421,7 +1436,7 @@ def run_gpt_prompt_decide_to_talk(persona, target_persona, retrieved,test_input=
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 20, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
-  prompt_template = "persona/prompt_template/v2/decide_to_talk_v2.txt"
+  prompt_template = "persona/prompt_template/v2/decide_to_talk_xj.txt"
   prompt_input = create_prompt_input(persona, target_persona, retrieved,
                                      test_input)
   prompt = generate_prompt(prompt_input, prompt_template)
