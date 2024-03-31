@@ -12,17 +12,22 @@ Variables:
 
 <commentblockmarker>###</commentblockmarker>
 Describe subtasks in 5 min increments. 
-You must provide subtasks from !<INPUT 5>! (total duration in minutes !<INPUT 6>!).
+You must provide subtasks from 08:00AM ~ 09:00AM (total duration in minutes 60).
 When (minutes left: 0), stop talking, and finish this work.
-
-You must repond in following format: 
-1) somebody is doing something. (duration in minutes: X, minutes left: Y)
 
 You must not continue with the remaining tasks.
 You must not move on to the next hour.
 You must not move on to the next task.
 You must not continue to other task.
 or you are wasting my money!!!
+
+You must repond in following format: 
+1) somebody is doing something. (duration in minutes: X, minutes left: Y)
+
+You must begin each line by following format: 
+1) somebody is
+2) somebody is
+3) somebody is
 
 请参考按照如下案例：
 ---

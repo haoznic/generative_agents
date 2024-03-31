@@ -390,10 +390,11 @@ def run_gpt_prompt_task_decomp(persona,
     cr = []
     for count, i in enumerate(temp): 
       # if (i.find("duration in minutes:")>0):
-      if count != 0: 
-        _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
-      else: 
-        _cr += [i]
+       _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
+      # if count != 0: 
+      #   _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
+      # else: 
+      #   _cr += [i]
     for count, i in enumerate(_cr): 
       k = [j.strip() for j in i.split("(duration in minutes:")]
       if(k==['']):
@@ -903,6 +904,7 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
     cr = gpt_response.strip()
+    print(f"ss-test __func_clean_up cr:[{cr}]")
     if len(cr) > 3:
       cr = cr[:3]
     return cr
