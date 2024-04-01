@@ -12,10 +12,14 @@ Variables:
 
 In general, !<INPUT 1>!
 Today is !<INPUT 2>!. Here is !<INPUT 3>!'s plan today in broad-strokes (with the time of the day. e.g., have a lunch at 12:00 pm, watch TV from 7 to 8 pm): 
-请根据上述信息，计划本日要做的主要事项和完成时间，
-写完整一段话，无须换行
-仅写明要做的事项，以及最后完成时刻，即 at 哪个时间点，每项计划必须用","做结尾，不要换行，继续用序号续写
-请跟随案例从2) 开始续写
-写完后，最后无需做总结！
+请根据以上信息，以极简格式列出本日要做的主要事项和完成时间，仅写明要做的事项，以及最后完成时刻，即 at 哪个时间点，
+
+请注意格式: 
+  除序号外不要使用"("和")"
+  除序号外不要使用"("和")"
+  每行必须用", "结尾
+  请跟随案例从2) 开始续写
+  写完后，最后无需做总结！
+ 
 要续写的清单如下
-1) wake up and complete the morning routine at !<INPUT 4>!,
+1) wake up and complete the morning routine at !<INPUT 4>!, 2)

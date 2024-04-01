@@ -112,15 +112,54 @@ def run_gpt_prompt_daily_plan(persona,
     prompt_input += [f"{str(wake_up_hour)}:00 am"]
     return prompt_input
 
+  # def __func_clean_up(gpt_response, prompt=""):
+  #   cr = []
+  #   gpt_response = gpt_response.split("2)")[1].replace("\n","")
+  #   _cr = gpt_response.split(")")
+  #   for i in _cr: 
+  #     if i[-1].isdigit(): 
+  #       i = i[:-1].strip()
+  #       if i[-1] == "." or i[-1] == ",": 
+  #         cr += [i[:-1].strip()]
+  #   return cr
+  
   def __func_clean_up(gpt_response, prompt=""):
     cr = []
-    gpt_response = gpt_response.split("2)")[1].replace("\n","")
-    _cr = gpt_response.split(")")
-    for i in _cr: 
-      if i[-1].isdigit(): 
-        i = i[:-1].strip()
-        if i[-1] == "." or i[-1] == ",": 
-          cr += [i[:-1].strip()]
+    if(gpt_response.startswith("1)")):
+      gpt_response = "2) ".join(gpt_response.split("2) ")[1:])
+    if(gpt_response.startswith("2)")):
+      gpt_response = gpt_response[2:]
+    if(gpt_response.find("\n\n")):
+      gpt_response = gpt_response.split("\n\n")[0]
+    gpt_response = gpt_response.replace(",\n",", ")
+    gpt_response = gpt_response.replace(", \n",", ")
+    gpt_response = gpt_response.replace("\n",", ")
+
+    # print(gpt_response)
+    temp = gpt_response
+    pos_n0 = 0
+    for i in range(100):
+      n = i+3
+      str_n = f"{n})"
+      pos_n = temp.find(str_n)
+      if(pos_n<pos_n0):
+        cur_str = temp[pos_n0:].strip()
+        if(cur_str[-1]==',' or cur_str[-1]=='.'):
+          cur_str=cur_str[:-1]
+            # print(str_n, pos_n0, pos_n, cur_str)
+        if(len(cur_str)>0):
+          cr +=[cur_str]
+        break
+        
+      if(pos_n>0):
+        cur_str = temp[pos_n0:pos_n].strip()
+        if(cur_str[-1]==',' or cur_str[-1]=='.'):
+          cur_str=cur_str[:-1]
+          # print(str_n, pos_n0, pos_n, cur_str)
+        if(len(cur_str)>0):
+          cr +=[cur_str]
+      pos_n0 = pos_n+len(str_n)
+    
     return cr
 
   def __func_validate(gpt_response, prompt=""):
