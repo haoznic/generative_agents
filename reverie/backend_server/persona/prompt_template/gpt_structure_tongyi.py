@@ -38,15 +38,19 @@ class MyQwen():
     def __init__(self):
         self.device = "cuda" # the device to load the model onto
         self.modelpath ="/mnt/workspace/project/llm/weights/qwen/Qwen1.5-7B-Chat-GPTQ-Int8"
-        self.emb_dir ="/mnt/workspace/project/llm/weights/qwen/Qwen-7B-Embedding"
-        self.emb_model_path = self.emb_dir+"/qwen_7b_embed.pth"
         self.model = AutoModelForCausalLM.from_pretrained(
             self.modelpath,
             device_map="auto"
         )
         self.tokenizer = AutoTokenizer.from_pretrained(self.modelpath)
+
+        self.emb_dir ="/mnt/workspace/project/llm/weights/qwen/Qwen-7B-Embedding"
+        self.emb_model_path = self.emb_dir+"/qwen_7b_embed.pth"
         self.embed_dict = torch.load(self.emb_model_path)
-        
+        vocab_size, embd_dim = self.embed_dict['weight'].size()
+        self.embed = nn.Embedding(vocab_size, embd_dim)
+        self.embed.load_state_dict(self.embed_dict)
+
     def invoke(self, prompt: object, gpt_parameter:object=None) -> object:
         messages = [
             {"role": "system", "content": "You are a helpful assistant."},
@@ -67,7 +71,6 @@ class MyQwen():
                 max_new_tokens=gpt_parameter["max_tokens"],
                 temperature=t,
                 top_p=gpt_parameter["top_p"],
-                # stop=gpt_parameter["stop"],
             )
         else:
             generated_ids = self.model.generate(
@@ -82,8 +85,7 @@ class MyQwen():
     # #         presence_penalty=gpt_parameter["presence_penalty"],
     # #         stream=gpt_parameter["stream"],
     # #         stop=gpt_parameter["stop"], )
-        # stop=gpt_parameter["stop"]
-        # 'stop': ['\n']
+       
         generated_ids = [
             output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
         ]
@@ -93,7 +95,8 @@ class MyQwen():
         # 后处理
         if("Activity: " in response):
             response = response.split("Activity: ")[1].split("[(ID:")[0]
-            
+        
+        # 'stop': ['\n']
         if(gpt_parameter!=None):
             stop=gpt_parameter["stop"]
             if(stop!=None):
@@ -108,22 +111,16 @@ class MyQwen():
         return response
     
     def embedding(self, text: object) -> object:
-        # tokenizer = AutoTokenizer.from_pretrained(self.modelpath, trust_remote_code=True)
-        ipts = self.tokenizer(text, return_tensors='pt')['input_ids']
-        vocab_size, embd_dim = self.embed_dict['weight'].size()
-        embed = nn.Embedding(vocab_size, embd_dim)
-        # print(embed(ipts))
-        embed.load_state_dict(self.embed_dict)
-        emb = embed(ipts)
+        text = text.replace("\n", " ")
+        if not text:
+            text = "this is blank"
 
-        # text = text.replace("\n", " ")
-        # if not text:
-        #     text = "this is blank"
-        # emb = self.tokenizer.encode(text)
+        ipts = self.tokenizer(text, return_tensors='pt')['input_ids']
+        emb = self.embed(ipts)
         # print("emb------------:",emb)
         return emb
 
-llm =  MyQwen() 
+llm =  MyQwen()
     
 def Tongyi_request(prompt: object) -> object:
     temp_sleep()
