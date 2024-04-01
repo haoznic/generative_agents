@@ -45,6 +45,7 @@ class MyQwen():
             device_map="auto"
         )
         self.tokenizer = AutoTokenizer.from_pretrained(self.modelpath)
+        self.embed_dict = torch.load(self.emb_model_path)
         
     def invoke(self, prompt: object, gpt_parameter:object=None) -> object:
         messages = [
@@ -109,11 +110,10 @@ class MyQwen():
     def embedding(self, text: object) -> object:
         # tokenizer = AutoTokenizer.from_pretrained(self.modelpath, trust_remote_code=True)
         ipts = self.tokenizer(text, return_tensors='pt')['input_ids']
-        embed_dict = torch.load(self.emb_model_path)
-        vocab_size, embd_dim = embed_dict['weight'].size()
+        vocab_size, embd_dim = self.embed_dict['weight'].size()
         embed = nn.Embedding(vocab_size, embd_dim)
         # print(embed(ipts))
-        embed.load_state_dict(embed_dict)
+        embed.load_state_dict(self.embed_dict)
         emb = embed(ipts)
 
         # text = text.replace("\n", " ")
