@@ -878,12 +878,12 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
     if "(" in action_description: 
       action_description = action_description.split("(")[-1].split(")")[0]
     prompt_input = [action_description]
-    print(f"ss-test action_description:[{action_description}], prompt_input:[{prompt_input}]")
+    # print(f"ss-test action_description:[{action_description}], prompt_input:[{prompt_input}]")
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
     cr = gpt_response.strip()
-    print(f"ss-test __func_clean_up cr:[{cr}]")
+    # print(f"ss-test __func_clean_up cr:[{cr}]")
     if len(cr) > 3:
       cr = cr[:3]
     return cr
@@ -904,7 +904,7 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
     cr = gpt_response.strip()
-    print(f"ss-test __func_clean_up cr:[{cr}]")
+    # print(f"ss-test __chat_func_clean_up cr:[{cr}]") ## 仅保留三个字符
     if len(cr) > 3:
       cr = cr[:3]
     return cr
@@ -916,7 +916,7 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
         return False
     except: return False
     return True 
-    return True
+    # return True
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 4") ########
   gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
