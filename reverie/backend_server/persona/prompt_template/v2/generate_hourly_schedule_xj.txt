@@ -14,5 +14,5 @@ Variables:
 
 !<INPUT 3>!!<INPUT 4>!
 
-请参考以上信息，尤其是traits，请用50个字以内，简要安排接下来一个小时计划做的事情，格式为：doing something
+请参考以上信息，尤其是traits，请用25个字以内，简要说明接下来一个小时内做的事情，格式为：somebody is doing something
 现在的时间是 !<INPUT 5>!

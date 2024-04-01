@@ -70,7 +70,8 @@ def run_gpt_prompt_wake_up_hour(persona, test_input=None, verbose=False):
   gpt_param = {"engine": "text-davinci-002", "max_tokens": 5, 
              "temperature": 0.8, "top_p": 1, "stream": False,
              "frequency_penalty": 0, "presence_penalty": 0, "stop": ["\n"]}
-  prompt_template = "persona/prompt_template/v2/wake_up_hour_v1.txt"
+  # prompt_template = "persona/prompt_template/v2/wake_up_hour_v1.txt"
+  prompt_template = "persona/prompt_template/v2/wake_up_hour_xj.txt"
   prompt_input = create_prompt_input(persona, test_input)
   prompt = generate_prompt(prompt_input, prompt_template)
   fail_safe = get_fail_safe()
@@ -113,6 +114,7 @@ def run_gpt_prompt_daily_plan(persona,
 
   def __func_clean_up(gpt_response, prompt=""):
     cr = []
+    gpt_response = gpt_response.split("2)")[1].replace("\n","")
     _cr = gpt_response.split(")")
     for i in _cr: 
       if i[-1].isdigit(): 
@@ -142,7 +144,8 @@ def run_gpt_prompt_daily_plan(persona,
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 500, 
                "temperature": 1, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
-  prompt_template = "persona/prompt_template/v2/daily_planning_v6.txt"
+  # prompt_template = "persona/prompt_template/v2/daily_planning_v6.txt"
+  prompt_template = "persona/prompt_template/v2/daily_planning_xj.txt"
   prompt_input = create_prompt_input(persona, wake_up_hour, test_input)
   prompt = generate_prompt(prompt_input, prompt_template)
 
