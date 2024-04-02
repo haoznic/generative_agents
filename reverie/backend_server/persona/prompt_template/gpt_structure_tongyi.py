@@ -119,6 +119,7 @@ class MyQwen():
         ipts = self.tokenizer(text, return_tensors='pt')['input_ids']
         emb_src = self.embed(ipts).detach().numpy()
         emb = np.mean(emb_src, axis=1).flatten()*0.6+np.max(emb_src, axis=1).flatten()*0.4
+        emb = emb.tolist()
 
         # print("emb------------:",emb)
         return emb
