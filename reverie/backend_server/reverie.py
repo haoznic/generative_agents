@@ -633,9 +633,8 @@ if __name__ == '__main__':
 
   origin = input("Enter the name of the forked simulation: ").strip()
   # target = input("Enter the name of the new simulation: ").strip()
-  if(origin !=""):
+  if(origin==""):
     sim_size = input("生成多少虚拟人？仅有【3，25】两种，请输入数字: ").strip()
-    origin = "base_the_ville_isabella_maria_klaus"
     if(int(sim_size)==3):
       origin = "base_the_ville_isabella_maria_klaus"
     elif(int(sim_size)==25):
