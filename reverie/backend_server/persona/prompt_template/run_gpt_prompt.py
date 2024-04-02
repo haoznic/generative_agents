@@ -512,9 +512,10 @@ def run_gpt_prompt_task_decomp(persona,
     curr_min_slot = curr_min_slot[1:]   
 
     if len(curr_min_slot) > total_expected_min: 
-      last_task = curr_min_slot[60]
-      for i in range(1, 6): 
-        curr_min_slot[-1 * i] = last_task
+      curr_min_slot= curr_min_slot[:60]
+      # last_task = curr_min_slot[60]
+      # for i in range(1, 6): 
+        # curr_min_slot[-1 * i] = last_task
     elif len(curr_min_slot) < total_expected_min: 
       # 如果 curr_min_slot 为空？
       if(len(curr_min_slot)>0):
