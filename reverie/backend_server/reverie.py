@@ -631,19 +631,17 @@ if __name__ == '__main__':
   #                    "July1_the_ville_isabella_maria_klaus-step-3-21")
   # rs.open_server()
 
-  # origin = input("Enter the name of the forked simulation: ").strip()
-  target = input("Enter the name of the new simulation: ").strip()
-
-  sim_size = input("生成多少虚拟人？仅有【3，25】两种，请输入数字: ").strip()
-
-  origin = "base_the_ville_isabella_maria_klaus"
-  if(int(sim_size)==3):
+  origin = input("Enter the name of the forked simulation: ").strip()
+  # target = input("Enter the name of the new simulation: ").strip()
+  if(origin !=""):
+    sim_size = input("生成多少虚拟人？仅有【3，25】两种，请输入数字: ").strip()
     origin = "base_the_ville_isabella_maria_klaus"
-  elif(int(sim_size)==25):
-    origin = "base_the_ville_n25"
-
-  if(target==""):
-    target = "debug_"+ str(int(datetime.datetime.now().timestamp()*1000))
+    if(int(sim_size)==3):
+      origin = "base_the_ville_isabella_maria_klaus"
+    elif(int(sim_size)==25):
+      origin = "base_the_ville_n25"
+  
+  target = "debug_"+ str(int(datetime.datetime.now().timestamp()*1000))
   print("本次实验目录为：",target)
 
   rs = ReverieServer(origin, target)
