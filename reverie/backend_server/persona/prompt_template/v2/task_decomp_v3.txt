@@ -42,6 +42,5 @@ You must begin each line by following format:
 !<INPUT 1>!
 In 5 min increments, list the subtasks !<INPUT 2>! does when !<INPUT 3>! is !<INPUT 4>! from !<INPUT 5>! (total duration in minutes !<INPUT 6>!): 
 
-现在开始续写，
-Answer in English,
-1) !<INPUT 7>! is
+YOU MUST Answer in English,
+1) !<INPUT 7>! is 
