@@ -12,7 +12,7 @@ Variables:
 
 <commentblockmarker>###</commentblockmarker>
 Follow the instructions below and generate subtasks in 5 minutes intervals.
-You must provide subtasks from !<INPUT 5>! (total duration in minutes !<INPUT 6>!).
+You must provide no more than 10 subtasks from !<INPUT 5>! (total duration in minutes !<INPUT 6>!).
 You must provide subtasks in English.
 stop the generation when (minutes left: 0), do not summarize.
 
@@ -30,11 +30,6 @@ Analize the following writing format carefully and answer the question according
 2) Kelly is brainstorming ideas for the lesson. (duration in minutes: 30, minutes left: 135)
 3) Kelly is creating the lesson plan. (duration in minutes: 30, minutes left: 105)
 4) Kelly is creating materials for the lesson. (duration in minutes: 30, minutes left: 75)
-5) Kelly is taking a break. (duration in minutes: 15, minutes left: 60)
-6) Kelly is reviewing the lesson plan. (duration in minutes: 30, minutes left: 30)
-7) Kelly is making final changes to the lesson plan. (duration in minutes: 15, minutes left: 15)
-8) Kelly is printing the lesson plan. (duration in minutes: 10, minutes left: 5)
-9) Kelly is putting the lesson plan in her bag. (duration in minutes: 5, minutes left: 0)
 
 
 The following information is given:
