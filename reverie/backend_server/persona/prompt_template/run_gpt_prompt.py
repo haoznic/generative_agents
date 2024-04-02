@@ -2226,7 +2226,7 @@ def run_gpt_prompt_chat_poignancy(persona, event_description, test_input=None, v
 
 def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=False): 
   def create_prompt_input(persona, statements, n, test_input=None): 
-    prompt_input = [statements, str(n), persona]
+    prompt_input = [statements, str(n), persona.name]
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):

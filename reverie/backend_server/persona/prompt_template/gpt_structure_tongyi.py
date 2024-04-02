@@ -9,7 +9,8 @@ import random
 import numpy as np
 # import openai
 import time
-
+from numpy import dot
+from numpy.linalg import norm
 from utils import *
 from transformers import GPT2TokenizerFast
 
@@ -116,9 +117,13 @@ class MyQwen():
             text = "this is blank"
 
         ipts = self.tokenizer(text, return_tensors='pt')['input_ids']
-        emb = self.embed(ipts)
+        emb_src = self.embed(ipts).detach().numpy()
+        emb = np.mean(emb_src, axis=1).flatten()*0.6+np.max(emb_src, axis=1).flatten()*0.4
+
         # print("emb------------:",emb)
         return emb
+    def cos_sim(self, sentence_embedding1, sentence_embedding2):
+        return dot(sentence_embedding1, sentence_embedding2)/(norm(sentence_embedding1)*norm(sentence_embedding2))
 
 llm =  MyQwen()
     
