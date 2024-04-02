@@ -426,13 +426,19 @@ def run_gpt_prompt_task_decomp(persona,
     # print (f"__func_clean_up prompt:[{prompt}]")
     print ("-==- -==- -==- ")
 
+    if(gpt_response.startswith("1) ") or gpt_response.startswith("1. ")):
+      1
+    else:
+      gpt_response = "1) someone is "+gpt_response
+
     # TODO SOMETHING HERE sometimes fails... See screenshot
     temp = [i.strip() for i in gpt_response.split("\n")]
     _cr = []
     cr = []
     for count, i in enumerate(temp): 
       # if (i.find("duration in minutes:")>0):
-       _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
+      # 这里非常生硬的假设所有文段都是[x) someone is ]，或者[x. someone is ]开头
+      _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
       # if count != 0: 
       #   _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
       # else: 
