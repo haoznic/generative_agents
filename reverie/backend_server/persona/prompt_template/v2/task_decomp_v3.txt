@@ -11,36 +11,20 @@ Variables:
 !<INPUT 7>! -- Persona first names
 
 <commentblockmarker>###</commentblockmarker>
-Describe subtasks in 5 min increments. 
-You must provide subtasks from 08:00AM ~ 09:00AM (total duration in minutes 60).
-When (minutes left: 0), stop talking, and finish this work.
+根据提供的信息，以5分钟为间隔生成 subtasks. 
+You must provide subtasks from !<INPUT 5>! (total duration in minutes !<INPUT 6>!).
+When (minutes left: 0), 结束生成，不需要总结.
 
 You must not continue with the remaining tasks.
-You must not move on to the next hour.
-You must not move on to the next task.
-You must not continue to other task.
+You must not provide subtasks of the next hour.
 or you are wasting my money!!!
 
-You must repond in following format: 
-1) somebody is doing something. (duration in minutes: X, minutes left: Y)
-
 You must begin each line by following format: 
-1) somebody is
-2) somebody is
-3) somebody is
+1) !<INPUT 7>! is [doing] [something]. (duration in minutes: X, minutes left: Y)
+2) !<INPUT 7>! is [doing] [something]. (duration in minutes: X, minutes left: Y)
+3) !<INPUT 7>! is [doing] [something]. (duration in minutes: X, minutes left: Y)
 
-请参考按照如下案例：
----
-Name: Kelly Bronson
-Age: 35
-Backstory: Kelly always wanted to be a teacher, and now she teaches kindergarten. During the week, she dedicates herself to her students, but on the weekends, she likes to try out new restaurants and hang out with friends. She is very warm and friendly, and loves caring for others.
-Personality: sweet, gentle, meticulous
-Location: Kelly is in an older condo that has the following areas: {kitchen, bedroom, dining, porch, office, bathroom, living room, hallway}.
-Currently: Kelly is a teacher during the school year. She teaches at the school but works on lesson plans at home. She is currently living alone in a single bedroom condo.
-Daily plan requirement: Kelly is planning to teach during the morning and work from home in the afternoon.s
-
-Today is Saturday May 10. From 08:00am ~09:00am, Kelly is planning on having breakfast, from 09:00am ~ 12:00pm, Kelly is planning on working on the next day's kindergarten lesson plan, and from 12:00 ~ 13pm, Kelly is planning on taking a break. 
-In 5 min increments, list the subtasks Kelly does when Kelly is working on the next day's kindergarten lesson plan from 09:00am ~ 12:00pm (total duration in minutes: 180):
+请仔细分析以下内容的书写格式，并按照这个格式来回答问题：
 1) Kelly is reviewing the kindergarten curriculum standards. (duration in minutes: 15, minutes left: 165)
 2) Kelly is brainstorming ideas for the lesson. (duration in minutes: 30, minutes left: 135)
 3) Kelly is creating the lesson plan. (duration in minutes: 30, minutes left: 105)
@@ -51,9 +35,12 @@ In 5 min increments, list the subtasks Kelly does when Kelly is working on the n
 8) Kelly is printing the lesson plan. (duration in minutes: 10, minutes left: 5)
 9) Kelly is putting the lesson plan in her bag. (duration in minutes: 5, minutes left: 0)
 
+
 当前待描述的任务如下
 ---
 !<INPUT 0>!
 !<INPUT 1>!
 In 5 min increments, list the subtasks !<INPUT 2>! does when !<INPUT 3>! is !<INPUT 4>! from !<INPUT 5>! (total duration in minutes !<INPUT 6>!): 
+
+现在开始续写
 1) !<INPUT 7>! is
