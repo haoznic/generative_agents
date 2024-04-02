@@ -13,8 +13,8 @@ Variables:
 <commentblockmarker>###</commentblockmarker>
 根据提供的信息，以5分钟为间隔生成 subtasks. 
 You must provide subtasks from !<INPUT 5>! (total duration in minutes !<INPUT 6>!).
+You must provide subtasks in English.
 When (minutes left: 0), 结束生成，不需要总结.
-
 You must not continue with the remaining tasks.
 You must not provide subtasks of the next hour.
 or you are wasting my money!!!
@@ -42,5 +42,5 @@ You must begin each line by following format:
 !<INPUT 1>!
 In 5 min increments, list the subtasks !<INPUT 2>! does when !<INPUT 3>! is !<INPUT 4>! from !<INPUT 5>! (total duration in minutes !<INPUT 6>!): 
 
-YOU MUST Answer in English,
+You must provide subtasks in English,
 1) !<INPUT 7>! is 
