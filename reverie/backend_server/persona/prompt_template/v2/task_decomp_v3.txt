@@ -11,10 +11,11 @@ Variables:
 !<INPUT 7>! -- Persona first names
 
 <commentblockmarker>###</commentblockmarker>
-根据提供的信息，以5分钟为间隔生成 subtasks. 
+Follow the instructions below and generate subtasks in 5 minutes intervals.
 You must provide subtasks from !<INPUT 5>! (total duration in minutes !<INPUT 6>!).
 You must provide subtasks in English.
-When (minutes left: 0), 结束生成，不需要总结.
+stop the generation when (minutes left: 0), do not summarize.
+
 You must not continue with the remaining tasks.
 You must not provide subtasks of the next hour.
 or you are wasting my money!!!
@@ -24,7 +25,7 @@ You must begin each line by following format:
 2) !<INPUT 7>! is [doing] [something]. (duration in minutes: X, minutes left: Y)
 3) !<INPUT 7>! is [doing] [something]. (duration in minutes: X, minutes left: Y)
 
-请仔细分析以下内容的书写格式，并按照这个格式来回答问题：
+Analize the following writing format carefully and answer the question according to this format:
 1) Kelly is reviewing the kindergarten curriculum standards. (duration in minutes: 15, minutes left: 165)
 2) Kelly is brainstorming ideas for the lesson. (duration in minutes: 30, minutes left: 135)
 3) Kelly is creating the lesson plan. (duration in minutes: 30, minutes left: 105)
@@ -36,7 +37,7 @@ You must begin each line by following format:
 9) Kelly is putting the lesson plan in her bag. (duration in minutes: 5, minutes left: 0)
 
 
-当前待描述的任务如下
+The following information is given:
 ---
 !<INPUT 0>!
 !<INPUT 1>!
