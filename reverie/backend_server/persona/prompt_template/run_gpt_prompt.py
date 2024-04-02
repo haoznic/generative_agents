@@ -9,6 +9,7 @@ import re
 import datetime
 import sys
 import ast
+import json
 
 sys.path.append('../../')
 
@@ -2225,11 +2226,14 @@ def run_gpt_prompt_chat_poignancy(persona, event_description, test_input=None, v
 
 def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=False): 
   def create_prompt_input(persona, statements, n, test_input=None): 
-    prompt_input = [statements, str(n)]
+    prompt_input = [statements, str(n), persona]
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
-    gpt_response = "1) " + gpt_response.strip()
+    if(gpt_response.startswith("1) ")):
+      gpt_response = gpt_response.strip()
+    else:
+      gpt_response = "1) " + gpt_response.strip()
     ret = []
     for i in gpt_response.split("\n"): 
       ret += [i.split(") ")[-1]]
@@ -2258,12 +2262,15 @@ def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=Fal
     except:
       return False 
 
+# 仅需要列出三项重要事项
+# 上一句翻译英语：only list three important things in the following statements
 
   print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 12") ########
   gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
-  prompt_template = "persona/prompt_template/v3_ChatGPT/generate_focal_pt_v1.txt" ########
+  # prompt_template = "persona/prompt_template/v3_ChatGPT/generate_focal_pt_v1.txt" ########
+  prompt_template = "persona/prompt_template/v3_ChatGPT/generate_focal_pt_xj.txt" ########
   prompt_input = create_prompt_input(persona, statements, n)  ########
   prompt = generate_prompt(prompt_input, prompt_template)
   example_output = '["What should Jane do for lunch", "Does Jane like strawberry", "Who is Jane"]' ########
@@ -2283,12 +2290,10 @@ def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=Fal
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 150, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
-  prompt_template = "persona/prompt_template/v2/generate_focal_pt_v1.txt"
+  # prompt_template = "persona/prompt_template/v2/generate_focal_pt_v1.txt"
+  prompt_template = "persona/prompt_template/v2/generate_focal_pt_xj.txt"
   prompt_input = create_prompt_input(persona, statements, n)
   prompt = generate_prompt(prompt_input, prompt_template)
-
-
-
 
   fail_safe = get_fail_safe(n)
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,

@@ -315,9 +315,21 @@ def ChatGPT_safe_generate_response(prompt,
 
         try:
             curr_gpt_response = ChatGPT_request(prompt).strip()
-            end_index = curr_gpt_response.rfind('}') + 1
-            curr_gpt_response = curr_gpt_response[:end_index]
-            curr_gpt_response = json.loads(curr_gpt_response)["output"]
+
+            if(isinstance(json.loads(curr_gpt_response),list)):
+                print("curr_gpt_response is list")
+                curr_gpt_response = json.loads(curr_gpt_response)
+            elif(isinstance(json.loads(curr_gpt_response),dict)):
+                print("curr_gpt_response is dict")
+                end_index = curr_gpt_response.rfind('}') + 1
+                curr_gpt_response = curr_gpt_response[:end_index]
+                end_index,curr_gpt_response
+                curr_gpt_response = json.loads(curr_gpt_response)["output"]
+            else:
+                print("curr_gpt_response is ",type(curr_gpt_response))
+                end_index = curr_gpt_response.rfind('}') + 1
+                curr_gpt_response = curr_gpt_response[:end_index]
+                curr_gpt_response = json.loads(curr_gpt_response)["output"]
 
             # print ("---ashdfaf")
             # print (curr_gpt_response)

@@ -1,0 +1,13 @@
+generate_focal_pt_xj.txt
+
+Variables: 
+!<INPUT 0>! -- Event/thought statements 
+!<INPUT 1>! -- Count 
+!<INPUT 2>! -- Persona 
+
+<commentblockmarker>###</commentblockmarker>
+!<INPUT 0>!
+
+Given only the information above, what are !<INPUT 1>! most salient high-level questions we can answer about the subjects grounded in the statements?
+Only list !<INPUT 1>! important things of !<INPUT 2>! in the following statements:
+1)
