@@ -19,4 +19,5 @@ Task -- choose an appropriate area  from the area options for a task at hand.
 Area options: {!<INPUT 7>!}. 
 * Stay in the current area if the activity can be done there. Only go out if the activity needs to take place in another place.
 * Must be one of the "Area options," verbatim.
+请从Area options中选择一个答案
 !<INPUT 8>! is !<INPUT 9>!. For !<INPUT 10>!, !<INPUT 11>! should go to the following area: {

@@ -27,4 +27,6 @@ Answer: cafe
 * Stay in the current area if the activity can be done there. 
 * NEVER go into other people's rooms unless necessary.
 !<INPUT 3>! is !<INPUT 4>!. For !<INPUT 5>!, !<INPUT 6>! should go to the following area in !<INPUT 7>! (MUST pick one of {!<INPUT 8>!}):
+
+请从{!<INPUT 2>!}中选择一个答案
 Answer: 
