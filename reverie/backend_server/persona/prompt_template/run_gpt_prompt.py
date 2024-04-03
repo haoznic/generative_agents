@@ -677,7 +677,7 @@ def run_gpt_prompt_action_sector(action_description,
 
 
   def __func_clean_up(gpt_response, prompt=""):
-    print(f"action_location_sector_v1 __func_clean_up gpt_response:[{gpt_response}]")
+    print(f"action_location_sector_xj __func_clean_up gpt_response:[{gpt_response}]")
     cleaned_response = gpt_response.split("}")[0]
     if(cleaned_response.find("{")>=0):
       cleaned_response = cleaned_response.split("{")[1]
@@ -740,7 +740,7 @@ def run_gpt_prompt_action_sector(action_description,
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  print(f"action_location_sector_v1 output:[{output}]")
+  print(f"action_location_sector_xj output:[{output}]")
 
   y = f"{maze.access_tile(persona.scratch.curr_tile)['world']}"
   x = [i.strip() for i in persona.s_mem.get_str_accessible_sectors(y).split(",")]
