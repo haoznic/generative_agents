@@ -898,7 +898,8 @@ def run_gpt_prompt_action_game_object(action_description,
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
-  prompt_template = "persona/prompt_template/v1/action_object_v2.txt"
+  # prompt_template = "persona/prompt_template/v1/action_object_v2.txt"
+  prompt_template = "persona/prompt_template/v1/action_object_xj.txt"
   prompt_input = create_prompt_input(action_description, 
                                      persona, 
                                      temp_address, 

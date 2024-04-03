@@ -40,6 +40,6 @@ Input: room is used
 Output: (room, is, used)
 ---
 
-现在请生成：
+只需要生成一组，现在请生成：
 Input: !<INPUT 0>! is !<INPUT 1>!. 
 Output: 
