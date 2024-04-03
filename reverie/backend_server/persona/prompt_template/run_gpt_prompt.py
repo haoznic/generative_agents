@@ -821,7 +821,7 @@ def run_gpt_prompt_action_arena(action_description,
   def __func_clean_up(gpt_response, prompt=""):
     print(f"action_location_object_xj __func_clean_up gpt_response:[{gpt_response}]")
     cleaned_response = gpt_response.split("}")[0]
-    if(cleaned_response.find("{")>0):
+    if(cleaned_response.find("{")>=0):
       cleaned_response = cleaned_response.split("{")[1]
     return cleaned_response
 
