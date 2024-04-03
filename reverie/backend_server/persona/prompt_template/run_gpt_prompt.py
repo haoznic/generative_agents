@@ -686,8 +686,8 @@ def run_gpt_prompt_action_sector(action_description,
   def __func_validate(gpt_response, prompt=""): 
     if len(gpt_response.strip()) < 1: 
       return False
-    if "}" not in gpt_response:
-      return False
+    # if "}" not in gpt_response:
+    #   return False
     if "," in gpt_response: 
       return False
     return True
@@ -727,12 +727,11 @@ def run_gpt_prompt_action_sector(action_description,
 
 
 
-
-
   gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
-  prompt_template = "persona/prompt_template/v1/action_location_sector_v1.txt"
+  # prompt_template = "persona/prompt_template/v1/action_location_sector_v1.txt"
+  prompt_template = "persona/prompt_template/v1/action_location_sector_xj.txt"
   prompt_input = create_prompt_input(action_description, persona, maze)
   prompt = generate_prompt(prompt_input, prompt_template)
 
