@@ -16,5 +16,5 @@ Variables:
 
 !<INPUT 3>!!<INPUT 4>!
 
-请参考以上信息，请用25个字以内，计划在以下时刻，在一个小时里做的事情，续写格式为: doing something
+请参考以上信息，请用24个字以内，计划在以下时刻，在一个小时里做的事情，续写格式为: doing something
 !<INPUT 5>!
