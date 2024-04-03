@@ -1,0 +1,20 @@
+insight_and_evidence_xj.txt
+
+Variables: 
+!<INPUT 0>! -- Numbered list of event/thought statements
+!<INPUT 1>! -- counts
+!<INPUT 2>! -- target persona name or "the conversation"
+
+<commentblockmarker>###</commentblockmarker>
+Instructions: Based on the input provided, identify !<INPUT 1>! high-level insights about !<INPUT 2>!'s daily life, routines, or challenges. For each insight, offer a concise explanation (no more than 20 words) and cite specific input items as evidence using their numbers. Use the format "Insight (because of #, #, #)" for your answers.
+
+Input:
+!<INPUT 0>!
+
+Expected Output Format:
+
+Insight about !<INPUT 2>!'s routine or challenges (because of #, #, #).
+
+Do not generate Explanations.
+
+Begin Your Analysis:
