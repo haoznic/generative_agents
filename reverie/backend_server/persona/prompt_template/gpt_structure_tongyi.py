@@ -346,7 +346,7 @@ def ChatGPT_safe_generate_response(prompt,
             time.sleep(1)
             if verbose:
                 print("---- repeat count: \n", i, curr_gpt_response)
-                print(curr_gpt_response)
+                # print(curr_gpt_response)
                 print("~~~~")
 
         except:
