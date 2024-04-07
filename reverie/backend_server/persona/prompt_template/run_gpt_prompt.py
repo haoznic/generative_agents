@@ -436,10 +436,21 @@ def run_gpt_prompt_task_decomp(persona,
     temp = [i.strip() for i in gpt_response.split("\n")]
     _cr = []
     cr = []
-    for count, i in enumerate(temp): 
+
+    tmp_prompt = prompt.strip().split("\n")[-1]
+    name = tmp_prompt.split(" ")[1]
+    name_is = " ".join([j.strip () for j in tmp_prompt.split(" ")][1:])
+    for count, i in enumerate(temp):
       # if (i.find("duration in minutes:")>0):
       # 这里非常生硬的假设所有文段都是[x) someone is ]，或者[x. someone is ]开头
-      _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
+      # _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
+      aline = " ".join([j.strip () for j in i.split(" ")][1:])
+      if(aline.startswith(name_is)):
+        aline = aline.split(name_is)[1]
+      if(aline.startswith(name)):
+        aline = aline.split(name)[1]
+        
+      _cr += [aline]
       # if count != 0: 
       #   _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
       # else: 
