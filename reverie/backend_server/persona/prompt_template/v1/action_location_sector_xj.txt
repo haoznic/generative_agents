@@ -16,8 +16,13 @@ Task -- choose an appropriate area  from the area options for a task at hand.
 
 !<INPUT 0>! lives in {!<INPUT 1>!} that has !<INPUT 2>!.
 !<INPUT 3>! is currently in {!<INPUT 4>!} that has !<INPUT 5>!. !<INPUT 6>!
-Area options: {!<INPUT 7>!}. 
-* Stay in the current area if the activity can be done there. Only go out if the activity needs to take place in another place.
-* Must be one of the "Area options," verbatim.
-请从Area options中选择一个答案
 !<INPUT 8>! is !<INPUT 9>!. For !<INPUT 10>!, !<INPUT 11>! should go to the following area: {
+
+从下列地点选择一个作为答案，不要分析原因，直接给出答案：
+{!<INPUT 7>!}. 
+
+Guidelines:
+
+1. Prioritize the primary location as it directly aligns with !<INPUT 0>!'s work responsibilities and daily routine.
+2. Consider !<INPUT 0>!'s ability to seamlessly integrate into regular work schedule, then there should be no need to venture elsewhere.
+3. Only if absolutely necessary, evaluate other area options in the event that current place does not accommodate the required activities or resources. In such cases, choose the alternative location that best facilitates the execution while minimizing disruption to !<INPUT 0>!'s work routine.
