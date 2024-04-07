@@ -340,6 +340,7 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
   elif(output.startswith(the_end_name+" ")):
     output = output.split(the_end_name+" ")[1].strip()
   
+  output = output.lower()
   
   if debug or verbose: 
     print_run_prompts(prompt_template, persona, gpt_param, 
@@ -450,6 +451,7 @@ def run_gpt_prompt_task_decomp(persona,
       if(aline.startswith(name)):
         aline = aline.split(name)[1]
         
+      aline = aline.lower()
       _cr += [aline]
       # if count != 0: 
       #   _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
@@ -466,6 +468,7 @@ def run_gpt_prompt_task_decomp(persona,
         if task[-1] == ".": 
           task = task[:-1]
         duration = int(k[1].replace(")","").split(",")[0].strip())
+        task = task.lower()
         cr += [[task, duration]]
 
     if(len(cr) == 0): 
@@ -485,6 +488,7 @@ def run_gpt_prompt_task_decomp(persona,
           else:
               continue
               # print("No matching minute number found in the string.")
+          task_name = task_name.lower()
           cr += [[task_name, minutes_extracted]]
 
     if(len(cr) == 0): 
@@ -506,6 +510,7 @@ def run_gpt_prompt_task_decomp(persona,
           else:
               continue
               # print("No matching minute number found in the string.")
+          task_name = task_name.lower()
           cr += [[task_name, minutes_extracted]]
     # (duration: 60
     total_expected_min = int(prompt.split("(total duration in minutes")[-1]
