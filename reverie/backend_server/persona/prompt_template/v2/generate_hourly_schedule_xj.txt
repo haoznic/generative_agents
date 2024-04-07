@@ -1,4 +1,4 @@
-generate_hourly_schedule_v2.txt
+generate_hourly_schedule_xj.txt
 
 Variables: 
 !<INPUT 0>! -- Schedule format
@@ -7,14 +7,18 @@ Variables:
 !<INPUT 3>! -- intermission_str
 !<INPUT 4>! -- intermission 2
 !<INPUT 5>! -- prompt_ending
+!<INPUT 6>! -- curr_hour_str
 
 <commentblockmarker>###</commentblockmarker>
 !<INPUT 1>!
 
-今天已经计划的日程是：
-!<INPUT 2>!
 
 !<INPUT 3>!!<INPUT 4>!
 
-请参考以上信息，请用24个字以内，计划在以下时刻，在一个小时里做的事情，续写格式为: doing something
+
+今天已经计划的日程是：
+!<INPUT 2>!
+
+
+based on originally intended hourly schedule today, 请用24个字以内，计划从 !<INPUT 6>! 开始的一个小时内做的事情，续写格式为: doing something
 !<INPUT 5>!

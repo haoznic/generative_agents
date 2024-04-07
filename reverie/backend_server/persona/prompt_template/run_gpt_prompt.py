@@ -262,6 +262,7 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
     else: 
       prompt_input += [""]
     prompt_input += [prompt_ending]
+    prompt_input += [curr_hour_str]
 
     return prompt_input,the_end
 
