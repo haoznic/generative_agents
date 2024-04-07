@@ -16,9 +16,9 @@ Variables:
 !<INPUT 3>!!<INPUT 4>!
 
 
-今天已经计划的日程是：
+Today's Scheduled Agenda Is:
 !<INPUT 2>!
 
 
-based on originally intended hourly schedule today, 请用24个字以内，计划从 !<INPUT 6>! 开始的一个小时内做的事情，续写格式为: doing something
+based on originally intended hourly schedule today, 请用24个字以内, provide agenda for the next hour starting at !<INPUT 6>!, formatted as follows: doing something
 !<INPUT 5>!
