@@ -423,6 +423,18 @@ def run_gpt_prompt_task_decomp(persona,
     return prompt_input
 
   def __func_clean_up(gpt_response, prompt=""):
+    def getAline(i,tmp_prompt):
+      name = tmp_prompt.split(" ")[1]
+      name_is = name+" is"
+      aline = " ".join([j.strip () for j in i.split(" ")][1:])
+      if(aline.startswith(name_is)):
+        aline = aline.split(name_is)[1]
+      elif(aline.startswith(name)):
+        aline = aline.split(name)[1]
+
+      aline = aline.lower()
+      return aline
+    
     print ("TOODOOOOOO")
     # print (f"__func_clean_up gpt_response:[{gpt_response}]")
     # print (f"__func_clean_up prompt:[{prompt}]")
@@ -437,26 +449,14 @@ def run_gpt_prompt_task_decomp(persona,
     temp = [i.strip() for i in gpt_response.split("\n")]
     _cr = []
     cr = []
-
+    
     tmp_prompt = prompt.strip().split("\n")[-1]
-    name = tmp_prompt.split(" ")[1]
-    name_is = " ".join([j.strip () for j in tmp_prompt.split(" ")][1:])
-    for count, i in enumerate(temp):
+    for count, i in enumerate(temp): 
       # if (i.find("duration in minutes:")>0):
       # 这里非常生硬的假设所有文段都是[x) someone is ]，或者[x. someone is ]开头
       # _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
-      aline = " ".join([j.strip () for j in i.split(" ")][1:])
-      if(aline.startswith(name_is)):
-        aline = aline.split(name_is)[1]
-      if(aline.startswith(name)):
-        aline = aline.split(name)[1]
-        
-      aline = aline.lower()
-      _cr += [aline]
-      # if count != 0: 
-      #   _cr += [" ".join([j.strip () for j in i.split(" ")][3:])]
-      # else: 
-      #   _cr += [i]
+      _cr += [getAline(i, tmp_prompt)]
+
     for count, i in enumerate(_cr): 
       k = [j.strip() for j in i.split("(duration in minutes:")]
       if(k==['']):
@@ -468,27 +468,40 @@ def run_gpt_prompt_task_decomp(persona,
         if task[-1] == ".": 
           task = task[:-1]
         duration = int(k[1].replace(")","").split(",")[0].strip())
-        task = task.lower()
         cr += [[task, duration]]
 
-    if(len(cr) == 0): 
+     # (5 minutes, 50 minutes left)
+    if(len(cr) == 0):
       for count, i in enumerate(temp): 
-        if(i.find(" minutes, minutes left:")>0):
+        if(i.find(" minutes,")>0):
           minutes_extracted = 0
           match = re.search(r'\((\d+) minutes', i)
           # 提取任务名称
           task_name = i.split('(')[0].strip()
-          if(task_name.find("is")>0):
-            task_name = task_name.split('is')[1].strip()
-          if(task_name.find(")")>0):
-            task_name = task_name.split(')')[1].strip()
+          task_name = getAline(task_name, tmp_prompt)
+          # print(i)
           if match:
               # 提取并输出找到的分钟数
               minutes_extracted = match.group(1)
           else:
               continue
               # print("No matching minute number found in the string.")
-          task_name = task_name.lower()
+          cr += [[task_name, minutes_extracted]]
+            
+    if(len(cr) == 0):
+      for count, i in enumerate(temp): 
+        if(i.find(" minutes, minutes left:")>0):
+          minutes_extracted = 0
+          match = re.search(r'\((\d+) minutes', i)
+          # 提取任务名称
+          task_name = i.split('(')[0].strip()
+          task_name = getAline(task_name, tmp_prompt)
+          if match:
+              # 提取并输出找到的分钟数
+              minutes_extracted = match.group(1)
+          else:
+              continue
+              # print("No matching minute number found in the string.")
           cr += [[task_name, minutes_extracted]]
 
     if(len(cr) == 0): 
@@ -498,19 +511,13 @@ def run_gpt_prompt_task_decomp(persona,
           match = re.search(r'\(duration: (\d+),', i)
           # 提取任务名称
           task_name = i.split('(')[0].strip()
-          if(task_name.find("is")>0):
-            task_name = task_name.split('is')[1].strip()
-          if(task_name.find(")")>0):
-            task_name = task_name.split(')')[1].strip()
-          if(task_name.find(". ")>0):
-            task_name = task_name.split('. ')[1].strip()
+          task_name = getAline(task_name, tmp_prompt)
           if match:
               # 提取并输出找到的分钟数
               minutes_extracted = match.group(1)
           else:
               continue
               # print("No matching minute number found in the string.")
-          task_name = task_name.lower()
           cr += [[task_name, minutes_extracted]]
     # (duration: 60
     total_expected_min = int(prompt.split("(total duration in minutes")[-1]
