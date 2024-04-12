@@ -11,7 +11,7 @@ Task: Turn the input into (subject, predicate, object).
 参考案例如下：
 
 Input: Sam Johnson is eating breakfast. 
-Output: (Dolores Murphy, eat, breakfast) 
+Output: (Sam Johnson, eat, breakfast) 
 --- 
 Input: Joon Park is brewing coffee.
 Output: (Joon Park, brew, coffee)
@@ -28,9 +28,6 @@ Output: (Percy Liang, teach, students)
 Input: Merrie Morris is running on a treadmill. 
 Output: (Merrie Morris, run, treadmill)
 ---
-Input: Sam Johnson is eating breakfast. 
-Output: (Dolores Murphy, eat, breakfast) 
---- 
 请同时注意主宾倒装的情况
 ---
 Input: something is used
