@@ -52,6 +52,10 @@ class MyQwen():
         self.embed = nn.Embedding(vocab_size, embd_dim)
         self.embed.load_state_dict(self.embed_dict)
 
+    def get_token(self, prompt: object)-> object:
+        model_inputs = self.tokenizer.encode(prompt, return_tensors="pt")[0]
+        return model_inputs
+    
     def invoke(self, prompt: object, gpt_parameter:object=None) -> object:
         messages = [
             {"role": "system", "content": "You are a helpful assistant."},
